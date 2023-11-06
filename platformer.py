@@ -3,8 +3,9 @@
 
 # Импортируем библиотеку pygame
 import pygame
-from player import *
-from blocks import *
+from Player import *
+from Blocks import *
+from Coin import *
 
 """
 Можем изменить размер нашего приложения (но не особо рекомендую), придется тогда менять все наши блоки
@@ -15,7 +16,7 @@ from blocks import *
 """
 
 WIN_WIDTH = 1080  # Ширина создаваемого окна
-WIN_HEIGHT = 900  # Высота
+WIN_HEIGHT = 700  # Высота
 
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
 
@@ -25,10 +26,14 @@ BACKGROUND_COLOR = "#CC99FF"
 def main():
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
-    pygame.display.set_caption("Belova Super")  # Пишем в шапку
+    pygame.display.set_caption("test")  # Пишем в шапку
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))  # Создание видимой поверхности
     # будем использовать как фон
     bg.fill(Color(BACKGROUND_COLOR))  # Заливаем поверхность сплошным цветом
+
+    coin = Coin(100, 100)
+    coin_group = pygame.sprite.Group()
+    coin_group.add(coin)
 
     hero = Player(55, 55)  # создаем героя по (x, y) координатам
     left = right = False  # по умолчанию - стоим
@@ -38,6 +43,7 @@ def main():
     platforms = []  # то, во что мы будем врезаться или опираться
 
     entities.add(hero)
+    entities.add(coin)
 
     level = [
         "----------------------------------",
@@ -51,7 +57,7 @@ def main():
         "-                   ----     --- -",
         "-                                -",
         "--                               -",
-        "-                                -",
+        "--------------    ----------------",
         "-                            --- -",
         "-                                -",
         "-                                -",
@@ -108,6 +114,9 @@ def main():
         hero.update(left, right, up, platforms)  # передвижение
         for e in entities:
             screen.blit(e.image, camera.apply(e))
+
+        coin_group.update(hero)
+        coin_group.draw(screen)
 
         pygame.display.update()  # обновление и вывод всех изменений на экран
 

@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import pygame.sprite
 from pygame import *
+
+from Coin import *
 import pyganim
 import os
 
 """
 Мы смело можем поиграться со скоростью, гравитаций, силой прижка и т.д (строчки 14 - 28)
-Тву же,  
 """
 
 MOVE_SPEED = 2
@@ -18,7 +19,7 @@ HEIGHT = 32
 
 COLOR = "#888888"
 
-JUMP_POWER = 10
+JUMP_POWER = 15
 
 GRAVITY = 0.35  # Сила, которая будет тянуть нас вниз
 
@@ -114,6 +115,9 @@ class Player(sprite.Sprite):
 
         if not self.onGround:
             self.yvel += GRAVITY
+
+        # if pygame.sprite.collide_rect(self, Coin):
+        #     self.kill()
 
         self.onGround = False;  # Мы не знаем, когда мы на земле((
         self.rect.y += self.yvel
