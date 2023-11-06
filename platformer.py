@@ -15,8 +15,8 @@ from Coin import *
 строки 13, 15, 17, 19, 25, 39-67, 84-107
 """
 
-WIN_WIDTH = 1080  # Ширина создаваемого окна
-WIN_HEIGHT = 700  # Высота
+WIN_WIDTH = 800  # Ширина создаваемого окна
+WIN_HEIGHT = 600  # Высота
 
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
 
@@ -31,10 +31,6 @@ def main():
     # будем использовать как фон
     bg.fill(Color(BACKGROUND_COLOR))  # Заливаем поверхность сплошным цветом
 
-    coin = Coin(100, 100)
-    coin_group = pygame.sprite.Group()
-    coin_group.add(coin)
-
     hero = Player(55, 55)  # создаем героя по (x, y) координатам
     left = right = False  # по умолчанию - стоим
     up = False
@@ -42,32 +38,33 @@ def main():
     entities = pygame.sprite.Group()  # Все объекты
     platforms = []  # то, во что мы будем врезаться или опираться
 
+    coins = pygame.sprite.Group()
+
     entities.add(hero)
-    entities.add(coin)
 
     level = [
         "----------------------------------",
-        "-                                -",
+        "-      0                         -",
         "-                       --       -",
         "-                                -",
         "-            --                  -",
-        "-                                -",
+        "-   00                           -",
         "-------                          -",
-        "-                                -",
+        "-                    0           -",
         "-                   ----     --- -",
         "-                                -",
-        "--                               -",
-        "--------------    ----------------",
+        "--                000000000000000-",
+        "--------    0     ----------------",
         "-                            --- -",
         "-                                -",
         "-                                -",
-        "-      ---                       -",
         "-                                -",
-        "-   -------         ----         -",
+        "-                                -",
+        "-   -----           ----         -",
         "-                                -",
         "-                         -      -",
         "-                            --  -",
-        "-                                -",
+        "-            ---                 -",
         "-                                -",
         "----------------------------------"]
 
@@ -80,6 +77,11 @@ def main():
                 entities.add(pf)
                 platforms.append(pf)
 
+            if col == "0":
+                coin = Coin(x, y)
+                entities.add(coin)
+                coins.add(coin)
+
             x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
         y += PLATFORM_HEIGHT  # то же самое и с высотой
         x = 0  # на каждой новой строчке начинаем с нуля
@@ -88,6 +90,8 @@ def main():
     total_level_height = len(level) * PLATFORM_HEIGHT  # высоту
 
     camera = Camera(camera_configure, total_level_width, total_level_height)
+
+    score = 0
 
     while True:
         timer.tick(60)
@@ -115,8 +119,17 @@ def main():
         for e in entities:
             screen.blit(e.image, camera.apply(e))
 
-        coin_group.update(hero)
-        coin_group.draw(screen)
+
+        # hero.update(left, right, up, platforms)
+        collected_coins = pygame.sprite.spritecollide(hero, coins, True)
+        score += len(collected_coins)
+
+        # coins.draw(screen) #
+        coins.update(hero)
+
+        fontt = pygame.font.Font(None, 36)
+        score_text = fontt.render(f"Score: {score}", True, (255, 255, 255))
+        screen.blit(score_text, (WIN_WIDTH - 150, 20))
 
         pygame.display.update()  # обновление и вывод всех изменений на экран
 
