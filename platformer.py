@@ -27,9 +27,7 @@ def main():
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
     pygame.display.set_caption("test")  # Пишем в шапку
-    bg = Surface((WIN_WIDTH, WIN_HEIGHT))  # Создание видимой поверхности
-    # будем использовать как фон
-    bg.fill(Color(BACKGROUND_COLOR))  # Заливаем поверхность сплошным цветом
+    bg = pygame.image.load("cecdff4eb0dc977f30ae42604c25dcab.png")
 
     hero = Player(55, 55)  # создаем героя по (x, y) координатам
     left = right = False  # по умолчанию - стоим
@@ -39,32 +37,32 @@ def main():
     platforms = []  # то, во что мы будем врезаться или опираться
 
     coins = pygame.sprite.Group()
-
+    thorns = pygame.sprite.Group()
     entities.add(hero)
 
     level = [
         "----------------------------------",
-        "-      0                         -",
-        "-                       --       -",
-        "-                                -",
-        "-            --                  -",
+        "-      0       *                 -",
+        "-                       cc       -",
+        "-                      *         -",
+        "-           c                    -",
         "-   00                           -",
-        "-------                          -",
+        "-cccccc        cc                -",
         "-                    0           -",
-        "-                   ----     --- -",
+        "-      *            cccc     ccc -",
         "-                                -",
-        "--                000000000000000-",
-        "--------    0     ----------------",
-        "-                            --- -",
+        "-                 000000000000000-",
+        "-ccccccc    0       ccccccccccccc-",
+        "-                            ccc -",
         "-                                -",
+        "-            *                   -",
         "-                                -",
+        "-                          *     -",
+        "-   ccccc           cccc         -",
         "-                                -",
-        "-                                -",
-        "-   -----           ----         -",
-        "-                                -",
-        "-                         -      -",
-        "-                            --  -",
-        "-            ---                 -",
+        "-                         c      -",
+        "-             c              cc  -",
+        "-            ccc                 -",
         "-                                -",
         "----------------------------------"]
 
@@ -76,12 +74,18 @@ def main():
                 pf = Platform(x, y)
                 entities.add(pf)
                 platforms.append(pf)
-
+            if col == 'c':
+                cl = Cloud(x, y)
+                entities.add(cl)
+                platforms.append(cl)
             if col == "0":
                 coin = Coin(x, y)
                 entities.add(coin)
                 coins.add(coin)
-
+            if col == '*':
+                th = Thorn(x, y)
+                entities.add(th)
+                thorns.add(th)
             x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
         y += PLATFORM_HEIGHT  # то же самое и с высотой
         x = 0  # на каждой новой строчке начинаем с нуля
@@ -98,14 +102,14 @@ def main():
         for e in pygame.event.get():  # Обрабатываем события
             if e.type == QUIT:
                 raise SystemExit("QUIT")
-            if e.type == KEYDOWN and e.key == K_UP:
+            if e.type == KEYDOWN and (e.key == K_UP or e.key == K_SPACE):
                 up = True
             if e.type == KEYDOWN and e.key == K_LEFT:
                 left = True
             if e.type == KEYDOWN and e.key == K_RIGHT:
                 right = True
 
-            if e.type == KEYUP and e.key == K_UP:
+            if e.type == KEYUP and (e.key == K_UP or e.key == K_SPACE):
                 up = False
             if e.type == KEYUP and e.key == K_RIGHT:
                 right = False
@@ -126,10 +130,10 @@ def main():
 
         # coins.draw(screen) #
         coins.update(hero)
-
-        fontt = pygame.font.Font(None, 36)
-        score_text = fontt.render(f"Score: {score}", True, (255, 255, 255))
-        screen.blit(score_text, (WIN_WIDTH - 150, 20))
+        thorns.update(hero     )
+        fontt = pygame.font.Font('Inter.ttf', 36)
+        score_text = fontt.render("Score: {}".format(score), True, (255, 255, 255))
+        screen.blit(score_text, (WIN_WIDTH - 175, 20))
 
         pygame.display.update()  # обновление и вывод всех изменений на экран
 

@@ -13,9 +13,10 @@ class Coin(sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = Surface((COIN_WIDTH, COIN_HEIGHT))
         self.image.fill(Color(COIN_COLOR))
-        # self.image = image.load()
+        self.image = image.load('%s/sprites/coin/images.png' % ICON_DIR)
         # self.rect = Rect(x, y, COIN_WIDTH, COIN_HEIGHT)
         self.rect = self.image.get_rect()
+        self.image.set_colorkey(Color('#FFFFFF'))
         self.rect.x = x
         self.rect.y = y
 

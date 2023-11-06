@@ -13,11 +13,11 @@ import os
 
 MOVE_SPEED = 2
 
-WIDTH = 22
+WIDTH = 48
 
 HEIGHT = 32
 
-COLOR = "#888888"
+COLOR = "#FFFFFF"
 
 JUMP_POWER = 15
 
@@ -27,19 +27,17 @@ ANIMATION_DELAY = 0.1  # скорость смены кадров
 
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 
+ANIMATION_RIGHT = [('%s/sprites/blocks/car.png' % ICON_DIR),
+                   ('%s/sprites/blocks/car.png' % ICON_DIR),
+                   ('%s/sprites/blocks/car.png' % ICON_DIR),
+                   ('%s/sprites/blocks/car.png' % ICON_DIR),
+                   ('%s/sprites/blocks/car.png' % ICON_DIR)]
 
-ANIMATION_RIGHT = [('%s/sprites/mario/r1.png' % ICON_DIR),
-                   ('%s/sprites/mario/r2.png' % ICON_DIR),
-                   ('%s/sprites/mario/r3.png' % ICON_DIR),
-                   ('%s/sprites/mario/r4.png' % ICON_DIR),
-                   ('%s/sprites/mario/r5.png' % ICON_DIR)]
-
-
-ANIMATION_LEFT = [('%s/sprites/mario/l1.png' % ICON_DIR),
-                  ('%s/sprites/mario/l2.png' % ICON_DIR),
-                  ('%s/sprites/mario/l3.png' % ICON_DIR),
-                  ('%s/sprites/mario/l4.png' % ICON_DIR),
-                  ('%s/sprites/mario/l5.png' % ICON_DIR)]
+ANIMATION_LEFT = [('%s/sprites/blocks/carl.png' % ICON_DIR),
+                  ('%s/sprites/blocks/carl.png' % ICON_DIR),
+                  ('%s/sprites/blocks/carl.png' % ICON_DIR),
+                  ('%s/sprites/blocks/carl.png' % ICON_DIR),
+                  ('%s/sprites/blocks/carl.png' % ICON_DIR)]
 
 ANIMATION_JUMP_LEFT = [('%s/sprites/mario/jl.png' % ICON_DIR, 0.1)]
 ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/jr.png' % ICON_DIR, 0.1)]
