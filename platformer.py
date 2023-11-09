@@ -3,9 +3,11 @@
 
 # Импортируем библиотеку pygame
 import pygame
+
+# from FireBlock import *
 from Player import *
 from Blocks import *
-from Coin import *
+# from Coin import *
 
 """
 Можем изменить размер нашего приложения (но не особо рекомендую), придется тогда менять все наши блоки
@@ -38,7 +40,11 @@ def main():
     entities = pygame.sprite.Group()  # Все объекты
     platforms = []  # то, во что мы будем врезаться или опираться
 
-    coins = pygame.sprite.Group()
+    coins = pygame.sprite.Group() # Группа для хранения монеток
+
+    fire_blocks = pygame.sprite.Group() # Группа для хранения блоков с огнем
+
+    # fire_projectiles = pygame.sprite.Group()
 
     entities.add(hero)
 
@@ -49,15 +55,15 @@ def main():
         "-                                -",
         "-            --                  -",
         "-   00                           -",
-        "-------                          -",
-        "-                    0           -",
+        "-------   0000000                -",
+        "-         -------    0           -",
         "-                   ----     --- -",
         "-                                -",
         "--                000000000000000-",
         "--------    0     ----------------",
         "-                            --- -",
         "-                                -",
-        "-                                -",
+        "-              1                 -",
         "-                                -",
         "-                                -",
         "-   -----           ----         -",
@@ -77,10 +83,15 @@ def main():
                 entities.add(pf)
                 platforms.append(pf)
 
-            if col == "0":
+            elif col == "0":
                 coin = Coin(x, y)
                 entities.add(coin)
                 coins.add(coin)
+
+            elif col == "1":
+                fire_block = FireBlock(x, y)
+                entities.add(fire_block)
+                fire_blocks.add(fire_block)
 
             x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
         y += PLATFORM_HEIGHT  # то же самое и с высотой
@@ -116,6 +127,7 @@ def main():
 
         camera.update(hero)  # центризируем камеру относительно персонажа
         hero.update(left, right, up, platforms)  # передвижение
+
         for e in entities:
             screen.blit(e.image, camera.apply(e))
 
@@ -126,6 +138,46 @@ def main():
 
         # coins.draw(screen) #
         coins.update(hero)
+
+        for fire_block in fire_blocks:
+            fire_block.update(hero)
+
+
+            screen.blit(fire_block.image, camera.apply(fire_block))
+            for fire_projectile in fire_block.fire_projectiles:
+                screen.blit(fire_projectile.image, camera.apply(fire_projectile))
+                fire_projectile.update()
+            # fire_block.fire_projectiles.draw(screen)
+            # fire_block.fire_projectiles.update()
+            # fire_block.fire_projectiles.update()
+        # TODO: for fire_block in fire_blocks:
+            # fire_block.fire_projectiles.draw(screen)
+            # TODO: fire_block.fire_projectiles.update()
+            # fire_block.fire_projectiles.draw(screen)
+
+        # TODO: for fire_block in fire_blocks:
+        #     TODO: fire_block.fire_projectiles.draw(screen)
+            # fire_block.fire_projectiles.draw(screen)
+            # fire_block.update(hero)
+
+
+        # fire_blocks.draw(screen)
+
+        # for fire_block in fire_blocks:
+        #     fire_block.fire_projectiles.update()
+        # fire_blocks.update(hero)
+        # fire_blocks.draw(screen)
+        #
+        # for fire_block in fire_blocks:
+        #     if pygame.sprite.spritecollide(hero, fire_block.pro, True):
+        #         raise SystemExit('gg')
+
+        # FireBlock.dra
+        # FireBlock.draw_fire(screen)
+        # fire_blocks.draw(screen)
+
+        # for fire_block in fire_blocks:
+        #     if sprite.spritecollide(hero, FireBlock.shoots)
 
         fontt = pygame.font.Font(None, 36)
         score_text = fontt.render(f"Score: {score}", True, (255, 255, 255))
