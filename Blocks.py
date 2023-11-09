@@ -27,17 +27,6 @@ class Platform(sprite.Sprite):
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 
-class Cloud(sprite.Sprite):
-    def __init__(self, x, y):
-        sprite.Sprite.__init__(self)
-        self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
-        # self.image.fill(Color(PLATFORM_COLOR))
-        self.image = image.load("%s/sprites/blocks/platform.png" % ICON_DIR)
-        self.image.set_colorkey(Color('#FFFFFF'))
-
-        self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
-
-
 class Thorn(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)

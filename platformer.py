@@ -23,6 +23,8 @@ DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и выс
 BACKGROUND_COLOR = "#CC99FF"
 
 # TODO: Как вариант, может накатить фон в виде изображение их посвапать или вовосе убрать и уже играться с цветами
+
+
 def main():
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
@@ -42,27 +44,27 @@ def main():
 
     level = [
         "----------------------------------",
-        "-      0       *                 -",
-        "-                       cc       -",
-        "-                      *         -",
-        "-           c                    -",
+        "-      0                         -",
+        "-                       --       -",
+        "-                                -",
+        "-         ---                    -",
         "-   00                           -",
-        "-cccccc        cc                -",
+        "-------        --                -",
         "-                    0           -",
-        "-      *            cccc     ccc -",
+        "-                   ----     --- -",
         "-                                -",
         "-                 000000000000000-",
-        "-ccccccc    0       ccccccccccccc-",
-        "-                            ccc -",
+        "--------    0       --------------",
         "-                                -",
-        "-            *                   -",
+        "-           ---                  -",
         "-                                -",
-        "-                          *     -",
-        "-   ccccc           cccc         -",
         "-                                -",
-        "-                         c      -",
-        "-             c              cc  -",
-        "-            ccc                 -",
+        "-                                -",
+        "-   -----           ----         -",
+        "-                                -",
+        "-                    ---         -",
+        "-            --           -  --  -",
+        "-     -   --                     -",
         "-                                -",
         "----------------------------------"]
 
@@ -74,10 +76,6 @@ def main():
                 pf = Platform(x, y)
                 entities.add(pf)
                 platforms.append(pf)
-            if col == 'c':
-                cl = Cloud(x, y)
-                entities.add(cl)
-                platforms.append(cl)
             if col == "0":
                 coin = Coin(x, y)
                 entities.add(coin)
