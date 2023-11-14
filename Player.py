@@ -27,7 +27,6 @@ ANIMATION_DELAY = 0.1  # скорость смены кадров
 
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 
-
 # ANIMATION_RIGHT = [('%s/sprites/mario/r1.png' % ICON_DIR),
 #                    ('%s/sprites/mario/r2.png' % ICON_DIR),
 #                    ('%s/sprites/mario/r3.png' % ICON_DIR),
@@ -38,8 +37,6 @@ ANIMATION_RIGHT = [('%s/sprites/mario/davit.png' % ICON_DIR),
                    ('%s/sprites/mario/davit.png' % ICON_DIR),
                    ('%s/sprites/mario/davit.png' % ICON_DIR),
                    ('%s/sprites/mario/davit.png' % ICON_DIR)]
-
-
 
 # ANIMATION_LEFT = [('%s/sprites/mario/l1.png' % ICON_DIR),
 #                   ('%s/sprites/mario/l2.png' % ICON_DIR),
@@ -61,7 +58,6 @@ ANIMATION_JUMP_LEFT = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
 ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
 ANIMATION_JUMP = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
 ANIMATION_STAY = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
-
 
 
 class Player(sprite.Sprite):
