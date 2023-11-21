@@ -28,22 +28,22 @@ ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталог�
 
 # Список персонажей: Mario, WTFguy, GraveRobber (не готов), Batman, WoodCutter (не готов), SteamMan(не готов)
 
-ANIMATION_RIGHT = [('%s/sprites/hero/WTFguy/r1.png' % ICON_DIR),
-                   ('%s/sprites/hero/WTFguy/r2.png' % ICON_DIR),
-                   ('%s/sprites/hero/WTFguy/r3.png' % ICON_DIR),
-                   ('%s/sprites/hero/WTFguy/r4.png' % ICON_DIR),
-                   ('%s/sprites/hero/WTFguy/r5.png' % ICON_DIR)]
+ANIMATION_RIGHT = [('%s/sprites/hero/WTFguy/right_1.png' % ICON_DIR),
+                   ('%s/sprites/hero/WTFguy/right_2.png' % ICON_DIR),
+                   ('%s/sprites/hero/WTFguy/right_3.png' % ICON_DIR),
+                   ('%s/sprites/hero/WTFguy/right_4.png' % ICON_DIR),
+                   ('%s/sprites/hero/WTFguy/right_5.png' % ICON_DIR)]
 # ANIMATION_RIGHT = [('%s/sprites/player/Mario/guy.png' % ICON_DIR),
 #                    ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
 #                    ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
 #                    ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
 #                    ('%s/sprites/player/Mario/guy.png' % ICON_DIR)]
 
-ANIMATION_LEFT = [('%s/sprites/hero/WTFguy/l1.png' % ICON_DIR),
-                  ('%s/sprites/hero/WTFguy/l2.png' % ICON_DIR),
-                  ('%s/sprites/hero/WTFguy/l3.png' % ICON_DIR),
-                  ('%s/sprites/hero/WTFguy/l4.png' % ICON_DIR),
-                  ('%s/sprites/hero/WTFguy/l5.png' % ICON_DIR)]
+ANIMATION_LEFT = [('%s/sprites/hero/WTFguy/left_1.png' % ICON_DIR),
+                  ('%s/sprites/hero/WTFguy/left_2.png' % ICON_DIR),
+                  ('%s/sprites/hero/WTFguy/left_3.png' % ICON_DIR),
+                  ('%s/sprites/hero/WTFguy/left_4.png' % ICON_DIR),
+                  ('%s/sprites/hero/WTFguy/left_5.png' % ICON_DIR)]
 
 # ANIMATION_LEFT = [('%s/sprites/player/Mario/guy.png' % ICON_DIR),
 #                   ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
@@ -51,10 +51,10 @@ ANIMATION_LEFT = [('%s/sprites/hero/WTFguy/l1.png' % ICON_DIR),
 #                   ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
 #                   ('%s/sprites/player/Mario/guy.png' % ICON_DIR)]
 
-ANIMATION_JUMP_LEFT = [('%s/sprites/hero/WTFguy/jl.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP_RIGHT = [('%s/sprites/hero/WTFguy/jr.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP = [('%s/sprites/hero/WTFguy/j.png' % ICON_DIR, 0.1)]
-ANIMATION_STAY = [('%s/sprites/hero/WTFguy/0.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_LEFT = [('%s/sprites/hero/WTFguy/jump_left.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_RIGHT = [('%s/sprites/hero/WTFguy/jump_right.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP = [('%s/sprites/hero/WTFguy/jump.png' % ICON_DIR, 0.1)]
+ANIMATION_STAY = [('%s/sprites/hero/WTFguy/default.png' % ICON_DIR, 0.1)]
 
 # ANIMATION_JUMP_LEFT = [('%s/sprites/player/Mario/guy.png' % ICON_DIR, 0.1)]
 # ANIMATION_JUMP_RIGHT = [('%s/sprites/player/Mario/guy.png' % ICON_DIR, 0.1)]
