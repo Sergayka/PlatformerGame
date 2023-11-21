@@ -10,15 +10,15 @@ import os
 Мы смело можем поиграться со скоростью, гравитаций, силой прижка и т.д (строчки 14 - 28)
 """
 
-MOVE_SPEED = 2
+MOVE_SPEED = 3
 
-WIDTH = 25
+WIDTH = 21
 
-HEIGHT = 32
+HEIGHT = 35
 
 COLOR = "#888888"
 
-JUMP_POWER = 15
+JUMP_POWER = 10
 
 GRAVITY = 0.35  # Сила, которая будет тянуть нас вниз
 
@@ -31,33 +31,34 @@ ANIMATION_RIGHT = [('%s/sprites/mario/r1.png' % ICON_DIR),
                    ('%s/sprites/mario/r3.png' % ICON_DIR),
                    ('%s/sprites/mario/r4.png' % ICON_DIR),
                    ('%s/sprites/mario/r5.png' % ICON_DIR)]
-# ANIMATION_RIGHT = [('%s/sprites/mario/davit.png' % ICON_DIR),
-#                    ('%s/sprites/mario/davit.png' % ICON_DIR),
-#                    ('%s/sprites/mario/davit.png' % ICON_DIR),
-#                    ('%s/sprites/mario/davit.png' % ICON_DIR),
-#                    ('%s/sprites/mario/davit.png' % ICON_DIR)]
-#
+# ANIMATION_RIGHT = [('%s/sprites/mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/mario/guy.png' % ICON_DIR)]
+
 ANIMATION_LEFT = [('%s/sprites/mario/l1.png' % ICON_DIR),
                   ('%s/sprites/mario/l2.png' % ICON_DIR),
                   ('%s/sprites/mario/l3.png' % ICON_DIR),
                   ('%s/sprites/mario/l4.png' % ICON_DIR),
                   ('%s/sprites/mario/l5.png' % ICON_DIR)]
-#
-# ANIMATION_LEFT = [('%s/sprites/mario/davit.png' % ICON_DIR),
-#                   ('%s/sprites/mario/davit.png' % ICON_DIR),
-#                   ('%s/sprites/mario/davit.png' % ICON_DIR),
-#                   ('%s/sprites/mario/davit.png' % ICON_DIR),
-#                   ('%s/sprites/mario/davit.png' % ICON_DIR)]
-#
+
+# ANIMATION_LEFT = [('%s/sprites/mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/mario/guy.png' % ICON_DIR)]
+
 ANIMATION_JUMP_LEFT = [('%s/sprites/mario/jl.png' % ICON_DIR, 0.1)]
 ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/jr.png' % ICON_DIR, 0.1)]
 ANIMATION_JUMP = [('%s/sprites/mario/j.png' % ICON_DIR, 0.1)]
 ANIMATION_STAY = [('%s/sprites/mario/0.png' % ICON_DIR, 0.1)]
-# ANIMATION_JUMP_LEFT = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
-# ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
-# ANIMATION_JUMP = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
-# ANIMATION_STAY = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
-#
+
+# ANIMATION_JUMP_LEFT = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
+# ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
+# ANIMATION_JUMP = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
+# ANIMATION_STAY = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
+
 
 class Player(sprite.Sprite):
     def __init__(self, x, y):
