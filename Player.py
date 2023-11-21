@@ -3,7 +3,6 @@
 import pygame.sprite
 from pygame import *
 
-from Coin import *
 import pyganim
 import os
 
@@ -11,15 +10,15 @@ import os
 Мы смело можем поиграться со скоростью, гравитаций, силой прижка и т.д (строчки 14 - 28)
 """
 
-MOVE_SPEED = 2
+MOVE_SPEED = 3
 
-WIDTH = 80
+WIDTH = 21
 
-HEIGHT = 80
+HEIGHT = 35
 
-COLOR = "#FFFFFF"
+COLOR = "#888888"
 
-JUMP_POWER = 15
+JUMP_POWER = 10
 
 GRAVITY = 0.35  # Сила, которая будет тянуть нас вниз
 
@@ -27,46 +26,38 @@ ANIMATION_DELAY = 0.1  # скорость смены кадров
 
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 
-ANIMATION_RIGHT = [('%s/sprites/blocks/car.png' % ICON_DIR),
-                   ('%s/sprites/blocks/car.png' % ICON_DIR),
-                   ('%s/sprites/blocks/car.png' % ICON_DIR),
-                   ('%s/sprites/blocks/car.png' % ICON_DIR),
-                   ('%s/sprites/blocks/car.png' % ICON_DIR)]
+ANIMATION_RIGHT = [('%s/sprites/mario/r1.png' % ICON_DIR),
+                   ('%s/sprites/mario/r2.png' % ICON_DIR),
+                   ('%s/sprites/mario/r3.png' % ICON_DIR),
+                   ('%s/sprites/mario/r4.png' % ICON_DIR),
+                   ('%s/sprites/mario/r5.png' % ICON_DIR)]
+# ANIMATION_RIGHT = [('%s/sprites/mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/mario/guy.png' % ICON_DIR)]
 
-# ANIMATION_RIGHT = [('%s/sprites/mario/r1.png' % ICON_DIR),
-#                    ('%s/sprites/mario/r2.png' % ICON_DIR),
-#                    ('%s/sprites/mario/r3.png' % ICON_DIR),
-#                    ('%s/sprites/mario/r4.png' % ICON_DIR),
-#                    ('%s/sprites/mario/r5.png' % ICON_DIR)]
-ANIMATION_RIGHT = [('%s/sprites/mario/davit.png' % ICON_DIR),
-                   ('%s/sprites/mario/davit.png' % ICON_DIR),
-                   ('%s/sprites/mario/davit.png' % ICON_DIR),
-                   ('%s/sprites/mario/davit.png' % ICON_DIR),
-                   ('%s/sprites/mario/davit.png' % ICON_DIR)]
+ANIMATION_LEFT = [('%s/sprites/mario/l1.png' % ICON_DIR),
+                  ('%s/sprites/mario/l2.png' % ICON_DIR),
+                  ('%s/sprites/mario/l3.png' % ICON_DIR),
+                  ('%s/sprites/mario/l4.png' % ICON_DIR),
+                  ('%s/sprites/mario/l5.png' % ICON_DIR)]
 
+# ANIMATION_LEFT = [('%s/sprites/mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/mario/guy.png' % ICON_DIR)]
 
+ANIMATION_JUMP_LEFT = [('%s/sprites/mario/jl.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/jr.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP = [('%s/sprites/mario/j.png' % ICON_DIR, 0.1)]
+ANIMATION_STAY = [('%s/sprites/mario/0.png' % ICON_DIR, 0.1)]
 
-# ANIMATION_LEFT = [('%s/sprites/mario/l1.png' % ICON_DIR),
-#                   ('%s/sprites/mario/l2.png' % ICON_DIR),
-#                   ('%s/sprites/mario/l3.png' % ICON_DIR),
-#                   ('%s/sprites/mario/l4.png' % ICON_DIR),
-#                   ('%s/sprites/mario/l5.png' % ICON_DIR)]
-
-ANIMATION_LEFT = [('%s/sprites/mario/davit.png' % ICON_DIR),
-                  ('%s/sprites/mario/davit.png' % ICON_DIR),
-                  ('%s/sprites/mario/davit.png' % ICON_DIR),
-                  ('%s/sprites/mario/davit.png' % ICON_DIR),
-                  ('%s/sprites/mario/davit.png' % ICON_DIR)]
-
-# ANIMATION_JUMP_LEFT = [('%s/sprites/mario/jl.png' % ICON_DIR, 0.1)]
-# ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/jr.png' % ICON_DIR, 0.1)]
-# ANIMATION_JUMP = [('%s/sprites/mario/j.png' % ICON_DIR, 0.1)]
-# ANIMATION_STAY = [('%s/sprites/mario/0.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP_LEFT = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
-ANIMATION_STAY = [('%s/sprites/mario/davit.png' % ICON_DIR, 0.1)]
-
+# ANIMATION_JUMP_LEFT = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
+# ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
+# ANIMATION_JUMP = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
+# ANIMATION_STAY = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
 
 
 class Player(sprite.Sprite):
@@ -107,7 +98,7 @@ class Player(sprite.Sprite):
         self.boltAnimJump = pyganim.PygAnimation(ANIMATION_JUMP)
         self.boltAnimJump.play()
 
-    def update(self, left, right, up, platforms):
+    def update(self, left, right, up, platforms, fire_blocks):
 
         if up:
             if self.onGround:  # прыгаем, только когда можем оттолкнуться от земли
@@ -140,31 +131,34 @@ class Player(sprite.Sprite):
         if not self.onGround:
             self.yvel += GRAVITY
 
-        # if pygame.sprite.collide_rect(self, Coin):
-        #     self.kill()
-
-        self.onGround = False;  # Мы не знаем, когда мы на земле((
+        self.onGround = False  # Мы не знаем, когда мы на земле((
         self.rect.y += self.yvel
-        self.collide(0, self.yvel, platforms)
+        self.collide(0, self.yvel, platforms, fire_blocks)
 
         self.rect.x += self.xvel  # переносим свои положение на xvel
-        self.collide(self.xvel, 0, platforms)
+        self.collide(self.xvel, 0, platforms, fire_blocks)
 
-    def collide(self, xvel, yvel, platforms):
+    def collide(self, xvel, yvel, platforms, fire_blocks):
         for p in platforms:
             if sprite.collide_rect(self, p):  # если есть пересечение платформы с игроком
+                self.handle_collision(xvel, yvel, p)
 
-                if xvel > 0:  # если движется вправо
-                    self.rect.right = p.rect.left  # то не движется вправо
+        for p in fire_blocks:
+            if sprite.collide_rect(self, p):  # если есть пересечение платформы с игроком
+                self.handle_collision(xvel, yvel, p)
 
-                if xvel < 0:  # если движется влево
-                    self.rect.left = p.rect.right  # то не движется влево
+    def handle_collision(self, xvel, yvel, p):
+        if xvel > 0:  # если движется вправо
+            self.rect.right = p.rect.left  # то не движется вправо
 
-                if yvel > 0:  # если падает вниз
-                    self.rect.bottom = p.rect.top  # то не падает вниз
-                    self.onGround = True  # и становится на что-то твердое
-                    self.yvel = 0  # и энергия падения пропадает
+        if xvel < 0:  # если движется влево
+            self.rect.left = p.rect.right  # то не движется влево
 
-                if yvel < 0:  # если движется вверх
-                    self.rect.top = p.rect.bottom  # то не движется вверх
-                    self.yvel = 0  # и энергия прыжка пропадает
+        if yvel > 0:  # если падает вниз
+            self.rect.bottom = p.rect.top  # то не падает вниз
+            self.onGround = True  # и становится на что-то твердое
+            self.yvel = 0  # и энергия падения пропадает
+
+        if yvel < 0:  # если движется вверх
+            self.rect.top = p.rect.bottom  # то не движется вверх
+            self.yvel = 0  # и энергия прыжка пропадает
