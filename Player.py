@@ -98,7 +98,7 @@ class Player(sprite.Sprite):
         self.boltAnimJump = pyganim.PygAnimation(ANIMATION_JUMP)
         self.boltAnimJump.play()
 
-    def update(self, left, right, up, platforms):
+    def update(self, left, right, up, platforms, fire_blocks):
 
         if up:
             if self.onGround:  # прыгаем, только когда можем оттолкнуться от земли
@@ -131,31 +131,34 @@ class Player(sprite.Sprite):
         if not self.onGround:
             self.yvel += GRAVITY
 
-        # if pygame.sprite.collide_rect(self, Coin):
-        #     self.kill()
-
-        self.onGround = False;  # Мы не знаем, когда мы на земле((
+        self.onGround = False  # Мы не знаем, когда мы на земле((
         self.rect.y += self.yvel
-        self.collide(0, self.yvel, platforms)
+        self.collide(0, self.yvel, platforms, fire_blocks)
 
         self.rect.x += self.xvel  # переносим свои положение на xvel
-        self.collide(self.xvel, 0, platforms)
+        self.collide(self.xvel, 0, platforms, fire_blocks)
 
-    def collide(self, xvel, yvel, platforms):
+    def collide(self, xvel, yvel, platforms, fire_blocks):
         for p in platforms:
             if sprite.collide_rect(self, p):  # если есть пересечение платформы с игроком
+                self.handle_collision(xvel, yvel, p)
 
-                if xvel > 0:  # если движется вправо
-                    self.rect.right = p.rect.left  # то не движется вправо
+        for p in fire_blocks:
+            if sprite.collide_rect(self, p):  # если есть пересечение платформы с игроком
+                self.handle_collision(xvel, yvel, p)
 
-                if xvel < 0:  # если движется влево
-                    self.rect.left = p.rect.right  # то не движется влево
+    def handle_collision(self, xvel, yvel, p):
+        if xvel > 0:  # если движется вправо
+            self.rect.right = p.rect.left  # то не движется вправо
 
-                if yvel > 0:  # если падает вниз
-                    self.rect.bottom = p.rect.top  # то не падает вниз
-                    self.onGround = True  # и становится на что-то твердое
-                    self.yvel = 0  # и энергия падения пропадает
+        if xvel < 0:  # если движется влево
+            self.rect.left = p.rect.right  # то не движется влево
 
-                if yvel < 0:  # если движется вверх
-                    self.rect.top = p.rect.bottom  # то не движется вверх
-                    self.yvel = 0  # и энергия прыжка пропадает
+        if yvel > 0:  # если падает вниз
+            self.rect.bottom = p.rect.top  # то не падает вниз
+            self.onGround = True  # и становится на что-то твердое
+            self.yvel = 0  # и энергия падения пропадает
+
+        if yvel < 0:  # если движется вверх
+            self.rect.top = p.rect.bottom  # то не движется вверх
+            self.yvel = 0  # и энергия прыжка пропадает

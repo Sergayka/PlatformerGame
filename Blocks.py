@@ -5,6 +5,8 @@ import pygame.sprite
 from pygame import *
 import os
 
+import platformer
+
 """
 Можно, но не рекомендуется поиграться с размерами платформ (13-14 строки), однако может привезти к небольшому полому границ,
 Мы можем изменить / убрать изображение платфомы(строка 24), если убираем, то играться с ее цветом (разкомент 23 и играем в 15 строке) 
@@ -59,9 +61,6 @@ class FireBlock(sprite.Sprite):
         # self.image.fill(Color(FIREBLOCK_COLOR))
         self.rect = Rect(x, y, FIREBLOCK_WIDTH, FIREBLOCK_HEIGHT)
 
-        # self.projectile = FireProjectile(x, y)
-        # self.projectile.rect.x = self.rect.x
-        # self.projectile.rect.y = self.rect.y
         self.fire_projectiles = pygame.sprite.Group()
         self.create_fire_projectiles(x, y)
 
@@ -69,26 +68,33 @@ class FireBlock(sprite.Sprite):
         self.fire_interval = 2000
 
     def create_fire_projectiles(self, x, y):
-        # fire_projectile = FireProjectile(x, y)
-        fire_projectile_right = FireProjectile(self.rect.x, self.rect.y, speed=0.5)
-        fire_projectile_left = FireProjectile(self.rect.x, self.rect.y, speed=-0.8)
+        fire_projectile_right = FireProjectile(self.rect.x + 33, self.rect.y + 11, speed=0.6)
+        fire_projectile_left = FireProjectile(self.rect.x - 11, self.rect.y + 11, speed=-0.51)
 
-        # fire_projectile_right.rect.move_ip(self.rect.x, self.rect.y)
-        # fire_projectile_left.rect.move_ip(self.rect.x, self.rect.y)
         self.fire_projectiles.add(fire_projectile_right, fire_projectile_left)
 
-    def update(self, Player):
+    def update(self, Player, platforms, thorns, fire_blocks, screen):
         current_time = pygame.time.get_ticks()
         if current_time - self.fire_timer > self.fire_interval:
             self.fire_timer = current_time
             self.create_fire_projectiles(self.rect.x, self.rect.y)
-        # self.projectile.update()
-        # if pygame.sprite.collide_rect(self.projectile, Player):
-        #     raise SystemExit('gg')
+
         for fire_projectile in self.fire_projectiles:
             fire_projectile.update()
             if pygame.sprite.collide_rect(fire_projectile, Player):
-                raise SystemExit('gg')
+                # raise breakpoint()
+                # print(game_over)
+                # return game_over
+                # return False
+                platformer.game_over(screen)
+                # raise platformer.main()
+                # raise SystemExit('gg')
+
+            if pygame.sprite.spritecollide(fire_projectile, platforms, False) or \
+                    pygame.sprite.spritecollide(fire_projectile, thorns, False) or \
+                    pygame.sprite.spritecollide(fire_projectile, fire_blocks, False):
+                fire_projectile.kill()
+
 
 
 FIREPROJECTILE_WIDTH = 10

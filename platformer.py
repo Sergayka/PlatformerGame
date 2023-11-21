@@ -4,10 +4,8 @@
 # Импортируем библиотеку pygame
 import pygame
 
-# from FireBlock import *
 from Player import *
 from Blocks import *
-# from Coin import *
 
 """
 Можем изменить размер нашего приложения (но не особо рекомендую), придется тогда менять все наши блоки
@@ -24,6 +22,7 @@ DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и выс
 
 BACKGROUND_COLOR = "#C0C0C0"
 
+
 # TODO: Как вариант, может накатить фон в виде изображение их посвапать или вовосе убрать и уже играться с цветами
 def main():
     pygame.init()  # Инициация PyGame, обязательная строчка
@@ -32,7 +31,6 @@ def main():
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))  # Создание видимой поверхности
     # будем использовать как фон
     bg.fill(Color(BACKGROUND_COLOR))  # Заливаем поверхность сплошным цветом
-
     # bg = pygame.image.load("")
 
     hero = Player(55, 55)  # создаем героя по (x, y) координатам
@@ -40,15 +38,13 @@ def main():
     up = False
 
     entities = pygame.sprite.Group()  # Все объекты
-    platforms = []  # то, во что мы будем врезаться или опираться
+    # platforms = []  # то, во что мы будем врезаться или опираться
+    platforms = pygame.sprite.Group()
+    coins = pygame.sprite.Group()  # Группа для хранения монеток
 
-    coins = pygame.sprite.Group() # Группа для хранения монеток
-
-    fire_blocks = pygame.sprite.Group() # Группа для хранения блоков с огнем
+    fire_blocks = pygame.sprite.Group()  # Группа для хранения блоков с огнем
 
     thorns = pygame.sprite.Group()
-
-    # fire_projectiles = pygame.sprite.Group()
 
     entities.add(hero)
 
@@ -92,7 +88,7 @@ def main():
             if col == "-":
                 pf = Platform(x, y)
                 entities.add(pf)
-                platforms.append(pf)
+                platforms.add(pf)
 
             elif col == "0":
                 coin = Coin(x, y)
@@ -108,7 +104,6 @@ def main():
                 th = Thorn(x, y)
                 entities.add(th)
                 thorns.add(th)
-
 
             x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
         y += PLATFORM_HEIGHT  # то же самое и с высотой
@@ -143,24 +138,20 @@ def main():
         screen.blit(bg, (0, 0))  # Каждую итерацию необходимо всё перерисовывать
 
         camera.update(hero)  # центризируем камеру относительно персонажа
-        hero.update(left, right, up, platforms)  # передвижение
+        hero.update(left, right, up, platforms, fire_blocks)  # передвижение
 
         for e in entities:
             screen.blit(e.image, camera.apply(e))
 
-
-        # hero.update(left, right, up, platforms)
         collected_coins = pygame.sprite.spritecollide(hero, coins, True)
         score += len(collected_coins)
 
-        # coins.draw(screen) #
         coins.update(hero)
 
         for fire_block in fire_blocks:
-            fire_block.update(hero)
-
-
+            fire_block.update(hero, platforms, thorns, fire_blocks, screen)
             screen.blit(fire_block.image, camera.apply(fire_block))
+
             for fire_projectile in fire_block.fire_projectiles:
                 screen.blit(fire_projectile.image, camera.apply(fire_projectile))
                 fire_projectile.update()
@@ -168,15 +159,14 @@ def main():
             # fire_block.fire_projectiles.update()
             # fire_block.fire_projectiles.update()
         # TODO: for fire_block in fire_blocks:
-            # fire_block.fire_projectiles.draw(screen)
-            # TODO: fire_block.fire_projectiles.update()
-            # fire_block.fire_projectiles.draw(screen)
+        # fire_block.fire_projectiles.draw(screen)
+        # TODO: fire_block.fire_projectiles.update()
+        # fire_block.fire_projectiles.draw(screen)
 
         # TODO: for fire_block in fire_blocks:
         #     TODO: fire_block.fire_projectiles.draw(screen)
-            # fire_block.fire_projectiles.draw(screen)
-            # fire_block.update(hero)
-
+        # fire_block.fire_projectiles.draw(screen)
+        # fire_block.update(hero)
 
         # fire_blocks.draw(screen)
 
@@ -230,6 +220,36 @@ def camera_configure(camera, target_rect):
     t = min(0, t)  # Не движемся дальше верхней границы
 
     return Rect(l, t, w, h)
+
+
+def game_over(screen):
+    font = pygame.font.Font(None, 72)
+    game_over_text = font.render("Game Over", True, (255, 0, 0))
+    screen.blit(game_over_text, (WIN_WIDTH // 2 - 150, WIN_HEIGHT // 2 - 50))
+
+    font = pygame.font.Font(None, 36)
+    restart_text = font.render("Press R to restart or Q to quit", True, (255, 255, 255))
+    screen.blit(restart_text, (WIN_WIDTH // 2 - 200, WIN_HEIGHT // 2 + 50))
+
+    pygame.display.update()
+
+    while True:
+        for e in pygame.event.get():
+            if e.type == QUIT:
+                raise SystemExit("1")
+            elif e.type == KEYDOWN:
+                if e.key == K_r:
+                    # pygame.quit()
+                    pygame.display.update()
+                    main()
+                    # start()
+                    # Restart the game
+                    # start()
+                    # if __name__ == "__main__":
+                    #     main()
+                elif e.key == K_q:
+                    # Quit the game
+                    raise SystemExit("2")
 
 
 if __name__ == "__main__":
