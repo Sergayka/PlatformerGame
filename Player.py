@@ -26,38 +26,40 @@ ANIMATION_DELAY = 0.1  # скорость смены кадров
 
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 
-ANIMATION_RIGHT = [('%s/sprites/mario/r1.png' % ICON_DIR),
-                   ('%s/sprites/mario/r2.png' % ICON_DIR),
-                   ('%s/sprites/mario/r3.png' % ICON_DIR),
-                   ('%s/sprites/mario/r4.png' % ICON_DIR),
-                   ('%s/sprites/mario/r5.png' % ICON_DIR)]
-# ANIMATION_RIGHT = [('%s/sprites/mario/guy.png' % ICON_DIR),
-#                    ('%s/sprites/mario/guy.png' % ICON_DIR),
-#                    ('%s/sprites/mario/guy.png' % ICON_DIR),
-#                    ('%s/sprites/mario/guy.png' % ICON_DIR),
-#                    ('%s/sprites/mario/guy.png' % ICON_DIR)]
+# Список персонажей: Mario, WTFguy, GraveRobber (не готов), Batman, WoodCutter (не готов), SteamMan(не готов)
 
-ANIMATION_LEFT = [('%s/sprites/mario/l1.png' % ICON_DIR),
-                  ('%s/sprites/mario/l2.png' % ICON_DIR),
-                  ('%s/sprites/mario/l3.png' % ICON_DIR),
-                  ('%s/sprites/mario/l4.png' % ICON_DIR),
-                  ('%s/sprites/mario/l5.png' % ICON_DIR)]
+ANIMATION_RIGHT = [('%s/sprites/player/Batman/r1.png' % ICON_DIR),
+                   ('%s/sprites/player/Batman/r2.png' % ICON_DIR),
+                   ('%s/sprites/player/Batman/r3.png' % ICON_DIR),
+                   ('%s/sprites/player/Batman/r4.png' % ICON_DIR),
+                   ('%s/sprites/player/Batman/r5.png' % ICON_DIR)]
+# ANIMATION_RIGHT = [('%s/sprites/player/Mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
+#                    ('%s/sprites/player/Mario/guy.png' % ICON_DIR)]
 
-# ANIMATION_LEFT = [('%s/sprites/mario/guy.png' % ICON_DIR),
-#                   ('%s/sprites/mario/guy.png' % ICON_DIR),
-#                   ('%s/sprites/mario/guy.png' % ICON_DIR),
-#                   ('%s/sprites/mario/guy.png' % ICON_DIR),
-#                   ('%s/sprites/mario/guy.png' % ICON_DIR)]
+ANIMATION_LEFT = [('%s/sprites/player/Batman/l1.png' % ICON_DIR),
+                  ('%s/sprites/player/Batman/l2.png' % ICON_DIR),
+                  ('%s/sprites/player/Batman/l3.png' % ICON_DIR),
+                  ('%s/sprites/player/Batman/l4.png' % ICON_DIR),
+                  ('%s/sprites/player/Batman/l5.png' % ICON_DIR)]
 
-ANIMATION_JUMP_LEFT = [('%s/sprites/mario/jl.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/jr.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP = [('%s/sprites/mario/j.png' % ICON_DIR, 0.1)]
-ANIMATION_STAY = [('%s/sprites/mario/0.png' % ICON_DIR, 0.1)]
+# ANIMATION_LEFT = [('%s/sprites/player/Mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/player/Mario/guy.png' % ICON_DIR),
+#                   ('%s/sprites/player/Mario/guy.png' % ICON_DIR)]
 
-# ANIMATION_JUMP_LEFT = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
-# ANIMATION_JUMP_RIGHT = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
-# ANIMATION_JUMP = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
-# ANIMATION_STAY = [('%s/sprites/mario/guy.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_LEFT = [('%s/sprites/player/Batman/jl.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_RIGHT = [('%s/sprites/player/Batman/jr.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP = [('%s/sprites/player/Batman/j.png' % ICON_DIR, 0.1)]
+ANIMATION_STAY = [('%s/sprites/player/Batman/0.png' % ICON_DIR, 0.1)]
+
+# ANIMATION_JUMP_LEFT = [('%s/sprites/player/Mario/guy.png' % ICON_DIR, 0.1)]
+# ANIMATION_JUMP_RIGHT = [('%s/sprites/player/Mario/guy.png' % ICON_DIR, 0.1)]
+# ANIMATION_JUMP = [('%s/sprites/player/Mario/guy.png' % ICON_DIR, 0.1)]
+# ANIMATION_STAY = [('%s/sprites/player/Mario/guy.png' % ICON_DIR, 0.1)]
 
 
 class Player(sprite.Sprite):
