@@ -102,7 +102,7 @@ class FireProjectile(sprite.Sprite):
         self.image = Surface((FIREPROJECTILE_WIDTH, FIREPROJECTILE_HEIGHT))
         self.image = image.load("%s/sprites/blocks/fireball.png" % ICON_DIR)
         # self.image.fill(Color(FIREPROJECTILE_COLOR))
-        self.rect = Rect(x + 10, y + 10, FIREPROJECTILE_WIDTH, FIREPROJECTILE_HEIGHT)
+        self.rect = Rect(x, y, FIREPROJECTILE_WIDTH, FIREPROJECTILE_HEIGHT)
         self.speed = speed
 
     def update(self):
