@@ -6,7 +6,7 @@ import pygame.sprite
 from pygame import *
 import os
 
-
+# region Platform block
 PLATFORM_WIDTH = 32
 PLATFORM_HEIGHT = 32
 # PLATFORM_COLOR = "#FFFFFF"
@@ -22,6 +22,9 @@ class Platform(sprite.Sprite):
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 
+# endregion
+
+# region Coin
 COIN_WIDTH = 30
 COIN_HEIGHT = 30
 COIN_COLOR = "#DAA520"
@@ -44,8 +47,12 @@ class Coin(sprite.Sprite):
             self.kill()
 
 
-FIREBLOCK_WIDTH = 32
-FIREBLOCK_HEIGHT = 32
+# endregion
+
+# region FireBlock
+
+SHOOTINGBLOCK_WEIGHT = 32
+SHOOTINGBLOCK_HEIGHT = 32
 
 FIREBLOCK_COLOR = "#DAA520"
 
@@ -53,10 +60,10 @@ FIREBLOCK_COLOR = "#DAA520"
 class ShootingBlock(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)
-        self.image = Surface((FIREBLOCK_WIDTH, FIREBLOCK_HEIGHT))
+        self.image = Surface((SHOOTINGBLOCK_WEIGHT, SHOOTINGBLOCK_HEIGHT))
         self.image = image.load("%s/sprites/blocks/dispencer.png" % ICON_DIR)
         # self.image.fill(Color(FIREBLOCK_COLOR))
-        self.rect = Rect(x, y, FIREBLOCK_WIDTH, FIREBLOCK_HEIGHT)
+        self.rect = Rect(x, y, SHOOTINGBLOCK_WEIGHT, SHOOTINGBLOCK_HEIGHT)
 
         self.projectiles = pygame.sprite.Group()
         self.create_projectiles(x, y)
@@ -86,25 +93,30 @@ class ShootingBlock(sprite.Sprite):
                     pygame.sprite.spritecollide(projectile, fire_blocks, False):
                 projectile.kill()
 
+# endregion
 
-FIREPROJECTILE_WIDTH = 10
-FIREPROJECTILE_HEIGHT = 10
+# region Projectiles
+PROJECTILE_WIDTH = 10
+PROJECTILE_HEIGHT = 10
 FIREPROJECTILE_COLOR = "#0FFFA7"
 
 
 class Projectiles(sprite.Sprite):
     def __init__(self, x, y, speed):
         sprite.Sprite.__init__(self)
-        self.image = Surface((FIREPROJECTILE_WIDTH, FIREPROJECTILE_HEIGHT))
+        self.image = Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
         self.image = image.load("%s/sprites/blocks/fireball.png" % ICON_DIR)
         # self.image.fill(Color(FIREPROJECTILE_COLOR))
-        self.rect = Rect(x, y, FIREPROJECTILE_WIDTH, FIREPROJECTILE_HEIGHT)
+        self.rect = Rect(x, y, PROJECTILE_WIDTH, PROJECTILE_HEIGHT)
         self.speed = speed
 
     def update(self):
         self.rect.x += self.speed
 
 
+# endregion
+
+# region Trap
 class Trap(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)
@@ -118,3 +130,4 @@ class Trap(sprite.Sprite):
         if pygame.sprite.collide_rect(self, player):
             return True
 
+# endregion
