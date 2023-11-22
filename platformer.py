@@ -23,9 +23,8 @@ def main(game_over):
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
     pygame.display.set_caption("Nice game bro")  # Пишем в шапку
 
-    bg = Surface((WIN_WIDTH, WIN_HEIGHT))  # Создание видимой поверхности
-    # будем использовать как фон
-    bg.fill(Color(BACKGROUND_COLOR))  # Заливаем поверхность сплошным цветом
+    bg = pygame.image.load('sprites/background/ararat.png')
+    screen.blit(bg, (0, 0))
 
     hero = Player(55, 55)  # создаем героя по (x, y) координатам
 
