@@ -154,7 +154,7 @@ def main(game_over):
             _font = pygame.font.Font('fonts/GameOver.ttf', 64)
             score_text = _font.render("YOU WON!", True, (255, 255, 255))
             screen.blit(score_text, (WIN_WIDTH // 2, WIN_HEIGHT // 2))
-            screen.blit(pygame.image.load("sprites/background/ararat.png"), (0, 0))
+            screen.blit(pygame.image.load("%s/sprites/background/gobg2.png" % ICON_DIR), (0, 0))
             game_win_end(screen)
 
         for shooting_block in shooting_blocks:
@@ -243,7 +243,7 @@ def is_win(score: int, level: list) -> bool:
 
 # TODO: create a function to show ararat in case of equality of score and the amount of coins at the level
 def game_win_end(screen) -> None:
-    bg = pygame.image.load("sprites/background/ararat.png")
+    bg = pygame.image.load("%s/sprites/background/ararat.png" % ICON_DIR)
     screen.blit(bg, (0, 0))
     stay_img = pygame.image.load(ANIMATION_STAY[0][0])
     screen.blit(stay_img, (WIN_WIDTH // 2 - 235, WIN_HEIGHT // 2 + 25))

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import pygame.sprite
 from pygame import *
 
 import pyganim
@@ -47,9 +46,9 @@ ANIMATION_STAY = [('%s/sprites/hero/Batman/default.png' % ICON_DIR, 0.1)]
 
 MOVE_SPEED = 3
 
-WIDTH = 21
+WIDTH = 42
 
-HEIGHT = 35
+HEIGHT = 50
 
 COLOR = "#888888"
 
