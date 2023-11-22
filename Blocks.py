@@ -93,6 +93,7 @@ class ShootingBlock(sprite.Sprite):
                     pygame.sprite.spritecollide(projectile, fire_blocks, False):
                 projectile.kill()
 
+
 # endregion
 
 # region Projectiles
@@ -105,7 +106,7 @@ class Projectiles(sprite.Sprite):
     def __init__(self, x, y, speed):
         sprite.Sprite.__init__(self)
         self.image = Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
-        self.image = image.load("%s/sprites/blocks/fireball.png" % ICON_DIR)
+        self.image = image.load("%s/sprites/projectiles/fireball.png" % ICON_DIR)
         # self.image.fill(Color(FIREPROJECTILE_COLOR))
         self.rect = Rect(x, y, PROJECTILE_WIDTH, PROJECTILE_HEIGHT)
         self.speed = speed

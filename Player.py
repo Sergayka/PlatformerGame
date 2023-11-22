@@ -13,38 +13,23 @@ import os
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 
 
-ANIMATION_RIGHT = [('%s/sprites/hero/r1.png' % ICON_DIR),
-                   ('%s/sprites/hero/r2.png' % ICON_DIR),
-                   ('%s/sprites/hero/r3.png' % ICON_DIR),
-                   ('%s/sprites/hero/r4.png' % ICON_DIR),
-                   ('%s/sprites/hero/r5.png' % ICON_DIR)]
-# ANIMATION_RIGHT = [('%s/sprites/hero/guy.png' % ICON_DIR),
-#                    ('%s/sprites/hero/guy.png' % ICON_DIR),
-#                    ('%s/sprites/hero/guy.png' % ICON_DIR),
-#                    ('%s/sprites/hero/guy.png' % ICON_DIR),
-#                    ('%s/sprites/hero/guy.png' % ICON_DIR)]
+ANIMATION_RIGHT = [('%s/sprites/hero/Batman/right_1.png' % ICON_DIR),
+                   ('%s/sprites/hero/Batman/right_2.png' % ICON_DIR),
+                   ('%s/sprites/hero/Batman/right_3.png' % ICON_DIR),
+                   ('%s/sprites/hero/Batman/right_4.png' % ICON_DIR),
+                   ('%s/sprites/hero/Batman/right_5.png' % ICON_DIR)]
 
-ANIMATION_LEFT = [('%s/sprites/hero/l1.png' % ICON_DIR),
-                  ('%s/sprites/hero/l2.png' % ICON_DIR),
-                  ('%s/sprites/hero/l3.png' % ICON_DIR),
-                  ('%s/sprites/hero/l4.png' % ICON_DIR),
-                  ('%s/sprites/hero/l5.png' % ICON_DIR)]
+ANIMATION_LEFT = [('%s/sprites/hero/Batman/left_1.png' % ICON_DIR),
+                  ('%s/sprites/hero/Batman/left_2.png' % ICON_DIR),
+                  ('%s/sprites/hero/Batman/left_3.png' % ICON_DIR),
+                  ('%s/sprites/hero/Batman/left_4.png' % ICON_DIR),
+                  ('%s/sprites/hero/Batman/left_5.png' % ICON_DIR)]
 
-# ANIMATION_LEFT = [('%s/sprites/hero/guy.png' % ICON_DIR),
-#                   ('%s/sprites/hero/guy.png' % ICON_DIR),
-#                   ('%s/sprites/hero/guy.png' % ICON_DIR),
-#                   ('%s/sprites/hero/guy.png' % ICON_DIR),
-#                   ('%s/sprites/hero/guy.png' % ICON_DIR)]
+ANIMATION_JUMP_LEFT = [('%s/sprites/hero/Batman/jump_left.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_RIGHT = [('%s/sprites/hero/Batman/jump_right.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP = [('%s/sprites/hero/Batman/jump.png' % ICON_DIR, 0.1)]
+ANIMATION_STAY = [('%s/sprites/hero/Batman/default.png' % ICON_DIR, 0.1)]
 
-ANIMATION_JUMP_LEFT = [('%s/sprites/hero/jl.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP_RIGHT = [('%s/sprites/hero/jr.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP = [('%s/sprites/hero/j.png' % ICON_DIR, 0.1)]
-ANIMATION_STAY = [('%s/sprites/hero/0.png' % ICON_DIR, 0.1)]
-
-# ANIMATION_JUMP_LEFT = [('%s/sprites/hero/guy.png' % ICON_DIR, 0.1)]
-# ANIMATION_JUMP_RIGHT = [('%s/sprites/hero/guy.png' % ICON_DIR, 0.1)]
-# ANIMATION_JUMP = [('%s/sprites/hero/guy.png' % ICON_DIR, 0.1)]
-# ANIMATION_STAY = [('%s/sprites/hero/guy.png' % ICON_DIR, 0.1)]
 
 
 

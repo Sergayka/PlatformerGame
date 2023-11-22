@@ -38,7 +38,7 @@ def main(game_over):
 
     coins = pygame.sprite.Group()  # Группа для хранения монеток
 
-    fire_blocks = pygame.sprite.Group()  # Группа для хранения блоков с огнем
+    shooting_blocks = pygame.sprite.Group()  # Группа для хранения блоков с огнем
 
     traps = pygame.sprite.Group()
 
@@ -90,9 +90,9 @@ def main(game_over):
                 coins.add(coin)
 
             elif col == "1":
-                fire_block = ShootingBlock(x, y)  # Подтягиваем платформы из файла Blocks.py
-                entities.add(fire_block)
-                fire_blocks.add(fire_block)
+                shooting_block = ShootingBlock(x, y)  # Подтягиваем платформы из файла Blocks.py
+                entities.add(shooting_block)
+                shooting_blocks.add(shooting_block)
 
             elif col == '*':
                 trap = Trap(x, y)  # Подтягиваем шипы из файла Blocks.py
@@ -139,7 +139,7 @@ def main(game_over):
 
         camera.update(hero)  # централизируем камеру относительно персонажа
 
-        hero.update(left, right, up, platforms, fire_blocks)  # передвижение героя с учетом всех элементов
+        hero.update(left, right, up, platforms, shooting_blocks)  # передвижение героя с учетом всех элементов
 
         for e in entities:
             screen.blit(e.image, camera.apply(e))
@@ -147,27 +147,27 @@ def main(game_over):
         collected_coins = pygame.sprite.spritecollide(hero, coins, True)  # Считываем подбор монеты
 
         score += len(collected_coins)  # Счетчик
-
+        print(screen, type(screen))
         coins.update(hero)
 
         if is_win(score, level):
             _font = pygame.font.Font('fonts/GameOver.ttf', 64)
             score_text = _font.render("YOU WON!", True, (255, 255, 255))
             screen.blit(score_text, (WIN_WIDTH // 2, WIN_HEIGHT // 2))
-            screen.blit(pygame.image.load("sprites/ararat.png"), (0, 0))
+            screen.blit(pygame.image.load("sprites/background/ararat.png"), (0, 0))
             game_win_end(screen)
 
-        for fire_block in fire_blocks:
-            game_over = fire_block.update(hero, platforms, traps,
-                                          fire_blocks)  # todo: подхватить другим методом можно мб
-            screen.blit(fire_block.image, camera.apply(fire_block))
+        for shooting_block in shooting_blocks:
+            game_over = shooting_block.update(hero, platforms, traps,
+                                              shooting_blocks)  # todo: подхватить другим методом можно мб
+            screen.blit(shooting_block.image, camera.apply(shooting_block))
 
             if game_over:
                 game_end(screen)
 
-            for fire_projectile in fire_block.fire_projectiles:
-                screen.blit(fire_projectile.image, camera.apply(fire_projectile))
-                fire_projectile.update()
+            for projectile in shooting_block.projectiles:
+                screen.blit(projectile.image, camera.apply(projectile))
+                projectile.update()
 
         for trap in traps:
             game_over = trap.update(hero, screen)
@@ -208,7 +208,7 @@ def camera_configure(camera, target_rect):
 
 
 def game_end(screen):
-    bg = pygame.image.load("sprites/gobg2.png")
+    bg = pygame.image.load("sprites/background/gobg2.png")
     screen.blit(bg, (0, 0))
     font = pygame.font.Font("fonts/Atari.ttf", 68)
     game_text = font.render("GAME", True, (255, 255, 255))
@@ -242,8 +242,8 @@ def is_win(score: int, level: list) -> bool:
 
 
 # TODO: create a function to show ararat in case of equality of score and the amount of coins at the level
-def game_win_end(screen):
-    bg = pygame.image.load("sprites/ararat.png")
+def game_win_end(screen) -> None:
+    bg = pygame.image.load("sprites/background/ararat.png")
     screen.blit(bg, (0, 0))
     stay_img = pygame.image.load(ANIMATION_STAY[0][0])
     screen.blit(stay_img, (WIN_WIDTH // 2 - 235, WIN_HEIGHT // 2 + 25))
