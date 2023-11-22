@@ -72,8 +72,8 @@ class ShootingBlock(sprite.Sprite):
         self.fire_interval = 2000
 
     def create_projectiles(self, x, y):
-        projectile_right = Projectiles(self.rect.x + 34, self.rect.y + 9, speed=0)
-        projectile_left = Projectiles(self.rect.x - 19, self.rect.y + 9, speed=-0)
+        projectile_right = Projectiles(self.rect.x + 34, self.rect.y + 9, speed=1)
+        projectile_left = Projectiles(self.rect.x - 19, self.rect.y + 9, speed=-1)
 
         self.projectiles.add(projectile_right, projectile_left)
 
