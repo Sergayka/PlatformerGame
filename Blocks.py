@@ -58,7 +58,7 @@ class ShootingBlock(sprite.Sprite):
         # self.image.fill(Color(FIREBLOCK_COLOR))
         self.rect = Rect(x, y, FIREBLOCK_WIDTH, FIREBLOCK_HEIGHT)
 
-        self.fire_projectiles = pygame.sprite.Group()
+        self.projectiles = pygame.sprite.Group()
         self.create_projectiles(x, y)
 
         self.fire_timer = 0
@@ -68,7 +68,7 @@ class ShootingBlock(sprite.Sprite):
         projectile_right = Projectiles(self.rect.x + 34, self.rect.y + 9, speed=0)
         projectile_left = Projectiles(self.rect.x - 19, self.rect.y + 9, speed=-0)
 
-        self.fire_projectiles.add(projectile_right, projectile_left)
+        self.projectiles.add(projectile_right, projectile_left)
 
     def update(self, player, platforms, thorns, fire_blocks):
         current_time = pygame.time.get_ticks()
@@ -76,15 +76,15 @@ class ShootingBlock(sprite.Sprite):
             self.fire_timer = current_time
             self.create_projectiles(self.rect.x, self.rect.y)
 
-        for fire_projectile in self.fire_projectiles:
-            fire_projectile.update()
-            if pygame.sprite.collide_rect(fire_projectile, player):
+        for projectile in self.projectiles:
+            projectile.update()
+            if pygame.sprite.collide_rect(projectile, player):
                 return True
 
-            if pygame.sprite.spritecollide(fire_projectile, platforms, False) or \
-                    pygame.sprite.spritecollide(fire_projectile, thorns, False) or \
-                    pygame.sprite.spritecollide(fire_projectile, fire_blocks, False):
-                fire_projectile.kill()
+            if pygame.sprite.spritecollide(projectile, platforms, False) or \
+                    pygame.sprite.spritecollide(projectile, thorns, False) or \
+                    pygame.sprite.spritecollide(projectile, fire_blocks, False):
+                projectile.kill()
 
 
 FIREPROJECTILE_WIDTH = 10
