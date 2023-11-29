@@ -5,10 +5,6 @@ import pygame
 from Player import *
 from Blocks import *
 
-"""
-Попробовать реализовать блок (слизь, паутина и т.д), 
-суть которой уменьшать мувспид и прыжок в n раз
-"""
 
 WIN_WIDTH = 800  # Ширина создаваемого окна
 WIN_HEIGHT = 500  # Высота
@@ -21,7 +17,7 @@ BACKGROUND_COLOR = "#C0C0C0"
 def main(game_over):
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
-    pygame.display.set_caption("Nice game bro")  # Пишем в шапку
+    pygame.display.set_caption("Game")  # Пишем в шапку
 
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))  # Создание видимой поверхности
     # будем использовать как фон
@@ -47,10 +43,10 @@ def main(game_over):
     level = [
         "------------------------------------------------------------------------------------------------------------",
         "-                                                                                                          -",
-        "-      1                --                                                                                 -",
+        "-                       --                                                                                 -",
         "-                                                                                                          -",
         "-            --                                                                                            -",
-        "-                                                                                                          -",
+        "-                                                                     1                                    -",
         "-------   0000000                                                                                          -",
         "-       ---------                                                                                          -",
         "-                   ----     ---                                                                           -",
@@ -68,8 +64,8 @@ def main(game_over):
         "-                            --                                                                            -",
         "-            ---                                                                                           -",
         "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
+        "-****************************00000*************************************************************************-",
+        "-****************************00000*************************************************************************-",
         "------------------------------------------------------------------------------------------------------------"]
 
     timer = pygame.time.Clock()
@@ -208,7 +204,7 @@ def camera_configure(camera, target_rect):
 
 
 def game_end(screen):
-    bg = pygame.image.load("sprites/background/gobg2.png")
+    bg = pygame.image.load("sprites/background/gobg.png")
     screen.blit(bg, (0, 0))
     font = pygame.font.Font("fonts/Atari.ttf", 68)
     game_text = font.render("GAME", True, (255, 255, 255))

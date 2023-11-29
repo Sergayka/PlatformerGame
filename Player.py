@@ -4,13 +4,10 @@ from pygame import *
 
 import pyganim
 import os
+from PIL import Image
 
-"""
-Мы смело можем поиграться со скоростью, гравитаций, силой прижка и т.д (строчки 14 - 28)
-"""
 
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
-
 
 ANIMATION_RIGHT = [('%s/sprites/hero/Batman/right_1.png' % ICON_DIR),
                    ('%s/sprites/hero/Batman/right_2.png' % ICON_DIR),
@@ -44,11 +41,29 @@ ANIMATION_STAY = [('%s/sprites/hero/Batman/default.png' % ICON_DIR, 0.1)]
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+im = Image.open(ANIMATION_STAY[0][0])
+(width, height) = im.size
+
+
 MOVE_SPEED = 3
 
-WIDTH = 42
+WIDTH = width
 
-HEIGHT = 50
+HEIGHT = height
 
 COLOR = "#888888"
 
