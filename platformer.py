@@ -1,114 +1,99 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Импортируем библиотеку pygame
 import pygame
-
-# from FireBlock import *
 from Player import *
 from Blocks import *
-# from Coin import *
 
-"""
-Можем изменить размер нашего приложения (но не особо рекомендую), придется тогда менять все наши блоки
-(подстраивать под размер) строки 15-16, так же можно поиграться с бэком, строка 20
-В строке 27 можем изменить название нашей игры на фио, к примеру, строить самостоятельно (ИГРА ДОБРАТЬСЯ ИЗ ТОЧКИ А В ТОЧКУ Б)
 
-строки 13, 15, 17, 19, 25, 39-67, 84-107
-"""
-
-WIN_WIDTH = 1000  # Ширина создаваемого окна
-WIN_HEIGHT = 992  # Высота
+WIN_WIDTH = 800  # Ширина создаваемого окна
+WIN_HEIGHT = 500  # Высота
 
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
 
 BACKGROUND_COLOR = "#C0C0C0"
 
-# TODO: Как вариант, может накатить фон в виде изображение их посвапать или вовосе убрать и уже играться с цветами
-def main():
+
+def main(game_over):
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
-    pygame.display.set_caption("Nice game bro")  # Пишем в шапку
+    pygame.display.set_caption("Game")  # Пишем в шапку
+
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))  # Создание видимой поверхности
     # будем использовать как фон
     bg.fill(Color(BACKGROUND_COLOR))  # Заливаем поверхность сплошным цветом
 
-    # bg = pygame.image.load("")
-
     hero = Player(55, 55)  # создаем героя по (x, y) координатам
+
     left = right = False  # по умолчанию - стоим
     up = False
 
     entities = pygame.sprite.Group()  # Все объекты
-    platforms = []  # то, во что мы будем врезаться или опираться
 
-    coins = pygame.sprite.Group() # Группа для хранения монеток
+    platforms = pygame.sprite.Group()
 
-    fire_blocks = pygame.sprite.Group() # Группа для хранения блоков с огнем
+    coins = pygame.sprite.Group()  # Группа для хранения монеток
 
-    thorns = pygame.sprite.Group()
+    shooting_blocks = pygame.sprite.Group()  # Группа для хранения блоков с огнем
 
-    # fire_projectiles = pygame.sprite.Group()
+    traps = pygame.sprite.Group()
 
     entities.add(hero)
 
     level = [
         "------------------------------------------------------------------------------------------------------------",
-        "-      0                                                                                                   -",
+        "-                                                                                                          -",
         "-                       --                                                                                 -",
         "-                                                                                                          -",
         "-            --                                                                                            -",
-        "-   00                                                                                                     -",
+        "-                                                                     1                                    -",
         "-------   0000000                                                                                          -",
-        "-         -------    0                                                                                     -",
+        "-       ---------                                                                                          -",
         "-                   ----     ---                                                                           -",
         "-                                                                                                          -",
-        "--                000000000000000                                                                          -",
-        "--------    0     ---------------                                                                          -",
-        "-                            ---   -----  000000000000                                                     -",
+        "--                                                                                                         -",
+        "--------          ---------------                                                                          -",
+        "-                            ---   -----                                                                   -",
         "-                                         ------------                                                     -",
-        "-              1                                                                                           -",
-        "-                                                        -----                            00000000000000000-",
-        "-                                                                                         ------------------",
+        "-           ---1                                                                                           -",
+        "-                                                        -----                                             -",
+        "-           -----                                                                         ------------------",
         "-   -----           ----                                          -----------                              -",
         "-                                                                             --------                     -",
         "-                         -                                                                                -",
         "-                            --                                                                            -",
         "-            ---                                                                                           -",
         "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-**********************************************************************************************************-",
-        "-**********************************************************************************************************-",
-        "-**********************************************************************************************************-",
-        "-**********************************************************************************************************-",
-        "-**********************************************************************************************************-",
+        "-****************************00000*************************************************************************-",
+        "-****************************00000*************************************************************************-",
         "------------------------------------------------------------------------------------------------------------"]
 
     timer = pygame.time.Clock()
+
     x = y = 0  # координаты
+
     for row in level:  # вся строка
         for col in row:  # каждый символ
+
             if col == "-":
-                pf = Platform(x, y)
-                entities.add(pf)
-                platforms.append(pf)
+                platform = Platform(x, y)  # Подтягиваем платформы из файла Blocks.py
+                entities.add(platform)
+                platforms.add(platform)
 
             elif col == "0":
-                coin = Coin(x, y)
+                coin = Coin(x, y)  # Подтягиваем монеты из файла Blocks.py
                 entities.add(coin)
                 coins.add(coin)
 
             elif col == "1":
-                fire_block = FireBlock(x, y)
-                entities.add(fire_block)
-                fire_blocks.add(fire_block)
+                shooting_block = ShootingBlock(x, y)  # Подтягиваем платформы из файла Blocks.py
+                entities.add(shooting_block)
+                shooting_blocks.add(shooting_block)
 
             elif col == '*':
-                th = Thorn(x, y)
-                entities.add(th)
-                thorns.add(th)
-
+                trap = Trap(x, y)  # Подтягиваем шипы из файла Blocks.py
+                entities.add(trap)
+                traps.add(trap)
 
             x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
         y += PLATFORM_HEIGHT  # то же самое и с высотой
@@ -121,87 +106,73 @@ def main():
 
     score = 0
 
-    while True:
+    while not game_over:  # Обрабатываются все события до тех пор, пока игра идет
         timer.tick(60)
         for e in pygame.event.get():  # Обрабатываем события
-            if e.type == QUIT:
+
+            if e.type == QUIT or (e.type == KEYUP and e.key == K_ESCAPE):
                 raise SystemExit("QUIT")
+
             if e.type == KEYDOWN and (e.key == K_UP or e.key == K_SPACE):
                 up = True
+
             if e.type == KEYDOWN and e.key == K_LEFT:
                 left = True
+
             if e.type == KEYDOWN and e.key == K_RIGHT:
                 right = True
 
             if e.type == KEYUP and (e.key == K_UP or e.key == K_SPACE):
                 up = False
+
             if e.type == KEYUP and e.key == K_RIGHT:
                 right = False
+
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
 
         screen.blit(bg, (0, 0))  # Каждую итерацию необходимо всё перерисовывать
 
-        camera.update(hero)  # центризируем камеру относительно персонажа
-        hero.update(left, right, up, platforms)  # передвижение
+        camera.update(hero)  # централизируем камеру относительно персонажа
+
+        hero.update(left, right, up, platforms, shooting_blocks)  # передвижение героя с учетом всех элементов
 
         for e in entities:
             screen.blit(e.image, camera.apply(e))
 
+        collected_coins = pygame.sprite.spritecollide(hero, coins, True)  # Считываем подбор монеты
 
-        # hero.update(left, right, up, platforms)
-        collected_coins = pygame.sprite.spritecollide(hero, coins, True)
-        score += len(collected_coins)
-
-        # coins.draw(screen) #
+        score += len(collected_coins)  # Счетчик
+        print(screen, type(screen))
         coins.update(hero)
 
-        for fire_block in fire_blocks:
-            fire_block.update(hero)
+        if is_win(score, level):
+            _font = pygame.font.Font('fonts/GameOver.ttf', 64)
+            score_text = _font.render("YOU WON!", True, (255, 255, 255))
+            screen.blit(score_text, (WIN_WIDTH // 2, WIN_HEIGHT // 2))
+            screen.blit(pygame.image.load("%s/sprites/background/gobg2.png" % ICON_DIR), (0, 0))
+            game_win_end(screen)
 
+        for shooting_block in shooting_blocks:
+            game_over = shooting_block.update(hero, platforms, traps,
+                                              shooting_blocks)  # todo: подхватить другим методом можно мб
+            screen.blit(shooting_block.image, camera.apply(shooting_block))
 
-            screen.blit(fire_block.image, camera.apply(fire_block))
-            for fire_projectile in fire_block.fire_projectiles:
-                screen.blit(fire_projectile.image, camera.apply(fire_projectile))
-                fire_projectile.update()
-            # fire_block.fire_projectiles.draw(screen)
-            # fire_block.fire_projectiles.update()
-            # fire_block.fire_projectiles.update()
-        # TODO: for fire_block in fire_blocks:
-            # fire_block.fire_projectiles.draw(screen)
-            # TODO: fire_block.fire_projectiles.update()
-            # fire_block.fire_projectiles.draw(screen)
+            if game_over:
+                game_end(screen)
 
-        # TODO: for fire_block in fire_blocks:
-        #     TODO: fire_block.fire_projectiles.draw(screen)
-            # fire_block.fire_projectiles.draw(screen)
-            # fire_block.update(hero)
+            for projectile in shooting_block.projectiles:
+                screen.blit(projectile.image, camera.apply(projectile))
+                projectile.update()
 
+        for trap in traps:
+            game_over = trap.update(hero, screen)
 
-        # fire_blocks.draw(screen)
+            if game_over:
+                game_end(screen)
 
-        # for fire_block in fire_blocks:
-        #     fire_block.fire_projectiles.update()
-        # fire_blocks.update(hero)
-        # fire_blocks.draw(screen)
-        #
-        # for fire_block in fire_blocks:
-        #     if pygame.sprite.spritecollide(hero, fire_block.pro, True):
-        #         raise SystemExit('gg')
-
-        # FireBlock.dra
-        # FireBlock.draw_fire(screen)
-        # fire_blocks.draw(screen)
-
-        # for fire_block in fire_blocks:
-        #     if sprite.spritecollide(hero, FireBlock.shoots)
-
-        thorns.update(hero)
-
-        # fontt = pygame.font.Font('Inter.ttf', 36)
-
-        fontt = pygame.font.Font(None, 36)
-        score_text = fontt.render(f"Score: {score}", True, (255, 255, 255))
+        _font = pygame.font.Font(None, 36)
+        score_text = _font.render(f"Score: {score}", True, (255, 255, 255))
         screen.blit(score_text, (WIN_WIDTH - 175, 20))
 
         pygame.display.update()  # обновление и вывод всех изменений на экран
@@ -232,5 +203,67 @@ def camera_configure(camera, target_rect):
     return Rect(l, t, w, h)
 
 
+def game_end(screen):
+    bg = pygame.image.load("sprites/background/gobg.png")
+    screen.blit(bg, (0, 0))
+    font = pygame.font.Font("fonts/Atari.ttf", 68)
+    game_text = font.render("GAME", True, (255, 255, 255))
+    screen.blit(game_text, (WIN_WIDTH // 2 - 130, WIN_HEIGHT // 2 - 150))
+    over_text = font.render("OVER", True, (255, 255, 255))
+    screen.blit(over_text, (WIN_WIDTH // 2 - 130, WIN_HEIGHT // 2 - 75))
+
+    font = pygame.font.Font(None, 36)
+    restart_text = font.render("Press R to restart or Q to quit", True, (255, 255, 255))
+    screen.blit(restart_text, (WIN_WIDTH // 2 - 160, WIN_HEIGHT // 2 + 50))
+
+    pygame.display.update()
+
+    while True:
+        for e in pygame.event.get():
+            if e.type == QUIT:
+                raise SystemExit("1")
+            elif e.type == KEYDOWN:
+                if e.key == K_r:
+                    return main(False)
+                elif e.key == K_q:
+                    raise SystemExit('Thx for play')
+
+
+def is_win(score: int, level: list) -> bool:
+    win_score = 0
+    for s in level:
+        win_score += s.count('0')
+
+    return win_score == score
+
+
+# TODO: create a function to show ararat in case of equality of score and the amount of coins at the level
+def game_win_end(screen) -> None:
+    bg = pygame.image.load("%s/sprites/background/ararat.png" % ICON_DIR)
+    screen.blit(bg, (0, 0))
+    stay_img = pygame.image.load(ANIMATION_STAY[0][0])
+    screen.blit(stay_img, (WIN_WIDTH // 2 - 235, WIN_HEIGHT // 2 + 25))
+    screen.blit(stay_img, (WIN_WIDTH // 2 + 220, WIN_HEIGHT // 2 - 90))
+    _font = pygame.font.Font("fonts/GameOver.ttf", 68)
+    game_text = _font.render("YOU WIN!", True, (255, 255, 255))
+    screen.blit(game_text, (WIN_WIDTH // 2 - 150, WIN_HEIGHT // 2 - 170))
+
+    _font = pygame.font.Font(None, 36)
+    restart_text = _font.render("Press R to restart or Q to quit", True, (255, 255, 255))
+    screen.blit(restart_text, (WIN_WIDTH // 2 - 160, WIN_HEIGHT // 2 + 100))
+
+    pygame.display.update()
+
+    while True:
+        for e in pygame.event.get():
+            if e.type == QUIT:
+                raise SystemExit("1")
+            elif e.type == KEYDOWN:
+                if e.key == K_r:
+                    return main(False)
+                elif e.key == K_q:
+                    raise SystemExit('Thx for play')
+
+
 if __name__ == "__main__":
-    main()
+    main(False)
