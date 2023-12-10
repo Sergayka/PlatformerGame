@@ -54,7 +54,7 @@ def main(game_over):
         "-      000              -",
         "-      ---              -",
         "-                 0     1",
-        "-                       -",
+        "-                ---    -",
         "-                       -",
         "-----------------***-----"]
 
@@ -229,7 +229,6 @@ def is_win(score: int, level: list) -> bool:
     return win_score == score
 
 
-# TODO: create a function to show ararat in case of equality of score and the amount of coins at the level
 def game_win_end(screen) -> None:
     bg = pygame.image.load("%s/sprites/background/ararat.png" % ICON_DIR)
     screen.blit(bg, (0, 0))

@@ -8,22 +8,22 @@ from PIL import Image
 
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 
-ANIMATION_RIGHT = [('%s/sprites/hero/WTFguy/right_1.png' % ICON_DIR),
-                   ('%s/sprites/hero/WTFguy/right_2.png' % ICON_DIR),
-                   ('%s/sprites/hero/WTFguy/right_3.png' % ICON_DIR),
-                   ('%s/sprites/hero/WTFguy/right_4.png' % ICON_DIR),
-                   ('%s/sprites/hero/WTFguy/right_5.png' % ICON_DIR)]
+ANIMATION_RIGHT = [('%s/sprites/hero/Mario/right_1.png' % ICON_DIR),
+                   ('%s/sprites/hero/Mario/right_2.png' % ICON_DIR),
+                   ('%s/sprites/hero/Mario/right_3.png' % ICON_DIR),
+                   ('%s/sprites/hero/Mario/right_4.png' % ICON_DIR),
+                   ('%s/sprites/hero/Mario/right_5.png' % ICON_DIR)]
 
-ANIMATION_LEFT = [('%s/sprites/hero/WTFguy/left_1.png' % ICON_DIR),
-                  ('%s/sprites/hero/WTFguy/left_2.png' % ICON_DIR),
-                  ('%s/sprites/hero/WTFguy/left_3.png' % ICON_DIR),
-                  ('%s/sprites/hero/WTFguy/left_4.png' % ICON_DIR),
-                  ('%s/sprites/hero/WTFguy/left_5.png' % ICON_DIR)]
+ANIMATION_LEFT = [('%s/sprites/hero/Mario/left_1.png' % ICON_DIR),
+                  ('%s/sprites/hero/Mario/left_2.png' % ICON_DIR),
+                  ('%s/sprites/hero/Mario/left_3.png' % ICON_DIR),
+                  ('%s/sprites/hero/Mario/left_4.png' % ICON_DIR),
+                  ('%s/sprites/hero/Mario/left_5.png' % ICON_DIR)]
 
-ANIMATION_JUMP_LEFT = [('%s/sprites/hero/WTFguy/jump_left.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP_RIGHT = [('%s/sprites/hero/WTFguy/jump_right.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP = [('%s/sprites/hero/WTFguy/jump.png' % ICON_DIR, 0.1)]
-ANIMATION_STAY = [('%s/sprites/hero/WTFguy/default.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_LEFT = [('%s/sprites/hero/Mario/jump_left.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_RIGHT = [('%s/sprites/hero/Mario/jump_right.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP = [('%s/sprites/hero/Mario/jump.png' % ICON_DIR, 0.1)]
+ANIMATION_STAY = [('%s/sprites/hero/Mario/default.png' % ICON_DIR, 0.1)]
 
 
 
