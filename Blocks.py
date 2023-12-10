@@ -18,7 +18,7 @@ class Platform(sprite.Sprite):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
         # self.image.fill(Color(PLATFORM_COLOR))
-        self.image = image.load("%s/sprites/blocks/stone_bricks.png" % ICON_DIR)
+        self.image = image.load("%s/sprites/blocks/random_blocks/stone_bricks3.png" % ICON_DIR)
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 
@@ -27,6 +27,7 @@ class Platform(sprite.Sprite):
 # region Coin
 COIN_WIDTH = 30
 COIN_HEIGHT = 30
+COIN_COLOR = "#DAA520"
 COLOR = "#FFFFFF"
 
 
@@ -34,8 +35,9 @@ class Coin(sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = Surface((COIN_WIDTH, COIN_HEIGHT))
+        self.image.fill(Color(COIN_COLOR))
 
-        self.image = image.load("%s/sprites/coin/coin.png" % ICON_DIR)
+        self.image = image.load("%s/sprites/coin/coin3.png" % ICON_DIR)
 
         self.image.set_colorkey(Color(COLOR))
         self.rect = Rect(x, y, COIN_WIDTH, COIN_HEIGHT)
@@ -52,13 +54,15 @@ class Coin(sprite.Sprite):
 SHOOTINGBLOCK_WEIGHT = 32
 SHOOTINGBLOCK_HEIGHT = 32
 
+FIREBLOCK_COLOR = "#DAA520"
+
 
 class ShootingBlock(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)
         self.image = Surface((SHOOTINGBLOCK_WEIGHT, SHOOTINGBLOCK_HEIGHT))
-        self.image = image.load("%s/sprites/blocks/dispencer.png" % ICON_DIR)
-
+        self.image = image.load("%s/sprites/blocks/random_blocks/turret.png" % ICON_DIR)
+        # self.image.fill(Color(FIREBLOCK_COLOR))
         self.rect = Rect(x, y, SHOOTINGBLOCK_WEIGHT, SHOOTINGBLOCK_HEIGHT)
 
         self.projectiles = pygame.sprite.Group()
@@ -81,7 +85,6 @@ class ShootingBlock(sprite.Sprite):
 
         for projectile in self.projectiles:
             projectile.update()
-
             if pygame.sprite.collide_rect(projectile, player):
                 return True
 
@@ -96,14 +99,15 @@ class ShootingBlock(sprite.Sprite):
 # region Projectiles
 PROJECTILE_WIDTH = 10
 PROJECTILE_HEIGHT = 10
+FIREPROJECTILE_COLOR = "#0FFFA7"
 
 
 class Projectiles(sprite.Sprite):
     def __init__(self, x, y, speed):
         sprite.Sprite.__init__(self)
         self.image = Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
-        self.image = image.load("%s/sprites/projectiles/fireball.png" % ICON_DIR)
-
+        self.image = image.load("%s/sprites/projectiles/purple-thing.png" % ICON_DIR)
+        # self.image.fill(Color(FIREPROJECTILE_COLOR))
         self.rect = Rect(x, y, PROJECTILE_WIDTH, PROJECTILE_HEIGHT)
         self.speed = speed
 
@@ -118,7 +122,8 @@ class Trap(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
-        self.image = image.load("%s/sprites/blocks/lava.png" % ICON_DIR)
+        # self.image.fill(Color(PLATFORM_COLOR))
+        self.image = image.load("%s/sprites/blocks/random_blocks/spikes1.png" % ICON_DIR)
         # self.image.set_colorkey(Color('#FFFFFF'))
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 

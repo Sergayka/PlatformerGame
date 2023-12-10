@@ -42,30 +42,29 @@ def main(game_over):
 
     level = [
         "------------------------------------------------------------------------------------------------------------",
-        "-                1                                                                                         -",
         "-                                                                                                          -",
-        "-                 -                                                                                        -",
-        "-          0      -                                                                                        -",
-        "-------------------                                                                                        -",
+        "-                       --                                                                                 -",
         "-                                                                                                          -",
+        "-            --                                                                                            -",
+        "-                                                                     1                                    -",
+        "-------   0000000                                                                                          -",
+        "-       ---------                                                                                          -",
+        "-                   ----     ---                                                                           -",
         "-                                                                                                          -",
+        "--                                                                                                         -",
+        "--------          ---------------                                                                          -",
+        "-                            ---   -----                                                                   -",
+        "-                                         ------------                                                     -",
+        "-           ---1                                                                                           -",
+        "-                                                        -----                                             -",
+        "-           -----                                                                         ------------------",
+        "-   -----           ----                                          -----------                              -",
+        "-                                                                             --------                     -",
+        "-                         -                                                                                -",
+        "-                            --                                                                            -",
+        "-            ---                                                                                           -",
         "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
-        "-                                                                                                          -",
+        "-****************************00000*************************************************************************-",
         "------------------------------------------------------------------------------------------------------------"]
 
     timer = pygame.time.Clock()
@@ -104,7 +103,7 @@ def main(game_over):
 
     camera = Camera(camera_configure, total_level_width, total_level_height)
 
-    score = -1
+    score = 0
 
     while not game_over:  # Обрабатываются все события до тех пор, пока игра идет
         timer.tick(60)
@@ -143,7 +142,7 @@ def main(game_over):
         collected_coins = pygame.sprite.spritecollide(hero, coins, True)  # Считываем подбор монеты
 
         score += len(collected_coins)  # Счетчик
-        print(coins, len(coins))
+        print(screen, type(screen))
         coins.update(hero)
 
         if is_win(score, level):
@@ -172,7 +171,7 @@ def main(game_over):
                 game_end(screen)
 
         _font = pygame.font.Font(None, 36)
-        score_text = _font.render(f"Score: {score+1}", True, (255, 255, 255))
+        score_text = _font.render(f"Score: {score}", True, (255, 255, 255))
         screen.blit(score_text, (WIN_WIDTH - 175, 20))
 
         pygame.display.update()  # обновление и вывод всех изменений на экран
@@ -231,34 +230,25 @@ def game_end(screen):
 
 def is_win(score: int, level: list) -> bool:
     win_score = 0
-
     for s in level:
         win_score += s.count('0')
 
-    if win_score > 0 and win_score == score+1:
-        return True
-
-    return False
+    return win_score == score
 
 
 # TODO: create a function to show ararat in case of equality of score and the amount of coins at the level
 def game_win_end(screen) -> None:
     bg = pygame.image.load("%s/sprites/background/ararat.png" % ICON_DIR)
     screen.blit(bg, (0, 0))
-
     stay_img = pygame.image.load(ANIMATION_STAY[0][0])
-
     screen.blit(stay_img, (WIN_WIDTH // 2 - 235, WIN_HEIGHT // 2 + 25))
     screen.blit(stay_img, (WIN_WIDTH // 2 + 220, WIN_HEIGHT // 2 - 90))
-
     _font = pygame.font.Font("fonts/GameOver.ttf", 68)
     game_text = _font.render("YOU WIN!", True, (255, 255, 255))
-
     screen.blit(game_text, (WIN_WIDTH // 2 - 150, WIN_HEIGHT // 2 - 170))
 
     _font = pygame.font.Font(None, 36)
     restart_text = _font.render("Press R to restart or Q to quit", True, (255, 255, 255))
-
     screen.blit(restart_text, (WIN_WIDTH // 2 - 160, WIN_HEIGHT // 2 + 100))
 
     pygame.display.update()
