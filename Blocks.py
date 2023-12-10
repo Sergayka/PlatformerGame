@@ -27,7 +27,6 @@ class Platform(sprite.Sprite):
 # region Coin
 COIN_WIDTH = 30
 COIN_HEIGHT = 30
-COIN_COLOR = "#DAA520"
 COLOR = "#FFFFFF"
 
 
@@ -35,7 +34,6 @@ class Coin(sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = Surface((COIN_WIDTH, COIN_HEIGHT))
-        self.image.fill(Color(COIN_COLOR))
 
         self.image = image.load("%s/sprites/coin/coin3.png" % ICON_DIR)
 
@@ -53,8 +51,6 @@ class Coin(sprite.Sprite):
 
 SHOOTINGBLOCK_WEIGHT = 32
 SHOOTINGBLOCK_HEIGHT = 32
-
-FIREBLOCK_COLOR = "#DAA520"
 
 
 class ShootingBlock(sprite.Sprite):
@@ -85,6 +81,7 @@ class ShootingBlock(sprite.Sprite):
 
         for projectile in self.projectiles:
             projectile.update()
+
             if pygame.sprite.collide_rect(projectile, player):
                 return True
 
@@ -99,7 +96,6 @@ class ShootingBlock(sprite.Sprite):
 # region Projectiles
 PROJECTILE_WIDTH = 10
 PROJECTILE_HEIGHT = 10
-FIREPROJECTILE_COLOR = "#0FFFA7"
 
 
 class Projectiles(sprite.Sprite):
