@@ -76,10 +76,10 @@ ANIMATION_DELAY = 0.1  # скорость смены кадров
 class Player(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)
-        self.x_vel = 0  # скорость перемещения. 0 - стоять на месте
+        self.xvel = 0  # скорость перемещения. 0 - стоять на месте
         self.startX = x  # Начальная позиция Х, пригодится когда будем переигрывать уровень
         self.startY = y
-        self.y_vel = 0  # скорость вертикального перемещения
+        self.yvel = 0  # скорость вертикального перемещения
         self.onGround = False  # На земле ли я?
         self.image = Surface((WIDTH, HEIGHT))
         self.image.fill(Color(COLOR))
@@ -115,12 +115,12 @@ class Player(sprite.Sprite):
 
         if up:
             if self.onGround:  # прыгаем, только когда можем оттолкнуться от земли
-                self.y_vel = -JUMP_POWER
+                self.yvel = -JUMP_POWER
             self.image.fill(Color(COLOR))
             self.boltAnimJump.blit(self.image, (0, 0))
 
         if left:
-            self.x_vel = -MOVE_SPEED  # Лево = x- n
+            self.xvel = -MOVE_SPEED  # Лево = x- n
             self.image.fill(Color(COLOR))
             if up:  # для прыжка влево есть отдельная анимация
                 self.boltAnimJumpLeft.blit(self.image, (0, 0))
@@ -128,7 +128,7 @@ class Player(sprite.Sprite):
                 self.boltAnimLeft.blit(self.image, (0, 0))
 
         if right:
-            self.x_vel = MOVE_SPEED  # Право = x + n
+            self.xvel = MOVE_SPEED  # Право = x + n
             self.image.fill(Color(COLOR))
             if up:
                 self.boltAnimJumpRight.blit(self.image, (0, 0))
@@ -136,20 +136,20 @@ class Player(sprite.Sprite):
                 self.boltAnimRight.blit(self.image, (0, 0))
 
         if not (left or right):  # стоим, когда нет указаний идти
-            self.x_vel = 0
+            self.xvel = 0
             if not up:
                 self.image.fill(Color(COLOR))
                 self.boltAnimStay.blit(self.image, (0, 0))
 
         if not self.onGround:
-            self.y_vel += GRAVITY
+            self.yvel += GRAVITY
 
         self.onGround = False  # Мы не знаем, когда мы на земле((
-        self.rect.y += self.y_vel
-        self.collide(0, self.y_vel, platforms, fire_blocks)
+        self.rect.y += self.yvel
+        self.collide(0, self.yvel, platforms, fire_blocks)
 
-        self.rect.x += self.x_vel  # переносим свои положение на xvel
-        self.collide(self.x_vel, 0, platforms, fire_blocks)
+        self.rect.x += self.xvel  # переносим свои положение на xvel
+        self.collide(self.xvel, 0, platforms, fire_blocks)
 
     def collide(self, xvel, yvel, platforms, fire_blocks):
         for p in platforms:
@@ -170,8 +170,8 @@ class Player(sprite.Sprite):
         if yvel > 0:  # если падает вниз
             self.rect.bottom = p.rect.top  # то не падает вниз
             self.onGround = True  # и становится на что-то твердое
-            self.y_vel = 0  # и энергия падения пропадает
+            self.yvel = 0  # и энергия падения пропадает
 
         if yvel < 0:  # если движется вверх
             self.rect.top = p.rect.bottom  # то не движется вверх
-            self.y_vel = 0  # и энергия прыжка пропадает
+            self.yvel = 0  # и энергия прыжка пропадает
