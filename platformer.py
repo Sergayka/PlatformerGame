@@ -39,7 +39,7 @@ def main(game_over):
     traps = pygame.sprite.Group()
 
     entities.add(hero)
-
+    # 0 - монетка, 1 - shotterblock (турель), - - платформа (блок), * - лива, шипы
     level = [
         "-------------------------",
         "-                       -",
