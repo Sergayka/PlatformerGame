@@ -7,7 +7,7 @@ from Blocks import *
 
 
 WIN_WIDTH = 800  # Ширина создаваемого окна
-WIN_HEIGHT = 500  # Высота
+WIN_HEIGHT = 514  # Высота
 
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
 
@@ -41,31 +41,22 @@ def main(game_over):
     entities.add(hero)
 
     level = [
-        "------------------------------------------------------------------------------------------------------------",
-        "-                                                                                                          -",
-        "-                       --                                                                                 -",
-        "-                                                                                                          -",
-        "-            --                                                                                            -",
-        "-                                                                     1                                    -",
-        "-------   0000000                                                                                          -",
-        "-       ---------                                                                                          -",
-        "-                   ----     ---                                                                           -",
-        "-                                                                                                          -",
-        "--                                                                                                         -",
-        "--------          ---------------                                                                          -",
-        "-                            ---   -----                                                                   -",
-        "-                                         ------------                                                     -",
-        "-           ---1                                                                                           -",
-        "-                                                        -----                                             -",
-        "-           -----                                                                         ------------------",
-        "-   -----           ----                                          -----------                              -",
-        "-                                                                             --------                     -",
-        "-                         -                                                                                -",
-        "-                            --                                                                            -",
-        "-            ---                                                                                           -",
-        "-                                                                                                          -",
-        "-****************************00000*************************************************************************-",
-        "------------------------------------------------------------------------------------------------------------"]
+        "-------------------------",
+        "-                       -",
+        "-                       -",
+        "-                       -",
+        "-                       -",
+        "-                       -",
+        "-                       -",
+        "-                       -",
+        "-                       -",
+        "-                       -",
+        "-      000              -",
+        "-      ---              -",
+        "-                 0     1",
+        "-                       -",
+        "-                       -",
+        "-----------------***-----"]
 
     timer = pygame.time.Clock()
 
@@ -112,23 +103,25 @@ def main(game_over):
             if e.type == QUIT or (e.type == KEYUP and e.key == K_ESCAPE):
                 raise SystemExit("QUIT")
 
-            if e.type == KEYDOWN and (e.key == K_UP or e.key == K_SPACE):
+            if e.type == KEYDOWN and (e.key == K_UP or e.key == K_SPACE or e.key == K_w):
                 up = True
 
-            if e.type == KEYDOWN and e.key == K_LEFT:
+            if e.type == KEYDOWN and (e.key == K_LEFT or e.key == K_a):
                 left = True
 
-            if e.type == KEYDOWN and e.key == K_RIGHT:
+            if e.type == KEYDOWN and (e.key == K_RIGHT or e.key == K_d):
                 right = True
 
-            if e.type == KEYUP and (e.key == K_UP or e.key == K_SPACE):
+            if e.type == KEYUP and (e.key == K_UP or e.key == K_SPACE or e.key == K_w):
                 up = False
 
-            if e.type == KEYUP and e.key == K_RIGHT:
+            if e.type == KEYUP and (e.key == K_LEFT or e.key == K_a):
+                left = False
+
+            if e.type == KEYUP and (e.key == K_RIGHT or e.key == K_d):
                 right = False
 
-            if e.type == KEYUP and e.key == K_LEFT:
-                left = False
+
 
         screen.blit(bg, (0, 0))  # Каждую итерацию необходимо всё перерисовывать
 

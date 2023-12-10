@@ -9,7 +9,6 @@ import os
 # region Platform block
 PLATFORM_WIDTH = 32
 PLATFORM_HEIGHT = 32
-# PLATFORM_COLOR = "#FFFFFF"
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 
 
@@ -17,7 +16,6 @@ class Platform(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
-        # self.image.fill(Color(PLATFORM_COLOR))
         self.image = image.load("%s/sprites/blocks/random_blocks/stone_bricks3.png" % ICON_DIR)
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
@@ -107,7 +105,7 @@ class Projectiles(sprite.Sprite):
         sprite.Sprite.__init__(self)
         self.image = Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
         self.image = image.load("%s/sprites/projectiles/purple-thing.png" % ICON_DIR)
-        # self.image.fill(Color(FIREPROJECTILE_COLOR))
+
         self.rect = Rect(x, y, PROJECTILE_WIDTH, PROJECTILE_HEIGHT)
         self.speed = speed
 
