@@ -7,7 +7,7 @@ import os
 from PIL import Image
 
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
-
+# Batman, GraveRobber, Mario, SteamMan, WTFguy
 ANIMATION_RIGHT = [('%s/sprites/hero/Mario/right_1.png' % ICON_DIR),
                    ('%s/sprites/hero/Mario/right_2.png' % ICON_DIR),
                    ('%s/sprites/hero/Mario/right_3.png' % ICON_DIR),
