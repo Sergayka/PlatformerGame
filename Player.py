@@ -8,22 +8,22 @@ from PIL import Image
 
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 # Batman, GraveRobber, Mario, SteamMan, WTFguy
-ANIMATION_RIGHT = [('%s/sprites/hero/Mario/right_1.png' % ICON_DIR),
-                   ('%s/sprites/hero/Mario/right_2.png' % ICON_DIR),
-                   ('%s/sprites/hero/Mario/right_3.png' % ICON_DIR),
-                   ('%s/sprites/hero/Mario/right_4.png' % ICON_DIR),
-                   ('%s/sprites/hero/Mario/right_5.png' % ICON_DIR)]
+ANIMATION_RIGHT = [('%s/sprites/hero/SteamMan/right_1.png' % ICON_DIR),
+                   ('%s/sprites/hero/SteamMan/right_2.png' % ICON_DIR),
+                   ('%s/sprites/hero/SteamMan/right_3.png' % ICON_DIR),
+                   ('%s/sprites/hero/SteamMan/right_4.png' % ICON_DIR),
+                   ('%s/sprites/hero/SteamMan/right_5.png' % ICON_DIR)]
 
-ANIMATION_LEFT = [('%s/sprites/hero/Mario/left_1.png' % ICON_DIR),
-                  ('%s/sprites/hero/Mario/left_2.png' % ICON_DIR),
-                  ('%s/sprites/hero/Mario/left_3.png' % ICON_DIR),
-                  ('%s/sprites/hero/Mario/left_4.png' % ICON_DIR),
-                  ('%s/sprites/hero/Mario/left_5.png' % ICON_DIR)]
+ANIMATION_LEFT = [('%s/sprites/hero/SteamMan/left_1.png' % ICON_DIR),
+                  ('%s/sprites/hero/SteamMan/left_2.png' % ICON_DIR),
+                  ('%s/sprites/hero/SteamMan/left_3.png' % ICON_DIR),
+                  ('%s/sprites/hero/SteamMan/left_4.png' % ICON_DIR),
+                  ('%s/sprites/hero/SteamMan/left_5.png' % ICON_DIR)]
 
-ANIMATION_JUMP_LEFT = [('%s/sprites/hero/Mario/jump_left.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP_RIGHT = [('%s/sprites/hero/Mario/jump_right.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP = [('%s/sprites/hero/Mario/jump.png' % ICON_DIR, 0.1)]
-ANIMATION_STAY = [('%s/sprites/hero/Mario/default.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_LEFT = [('%s/sprites/hero/SteamMan/jump_left.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_RIGHT = [('%s/sprites/hero/SteamMan/jump_right.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP = [('%s/sprites/hero/SteamMan/jump.png' % ICON_DIR, 0.1)]
+ANIMATION_STAY = [('%s/sprites/hero/SteamMan/default.png' % ICON_DIR, 0.1)]
 
 
 

@@ -16,7 +16,7 @@ class Platform(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
-        self.image = image.load("%s/sprites/blocks/random_blocks/stone_bricks6.png" % ICON_DIR)
+        self.image = image.load("%s/sprites/blocks/random_blocks/turret.png" % ICON_DIR)
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 
